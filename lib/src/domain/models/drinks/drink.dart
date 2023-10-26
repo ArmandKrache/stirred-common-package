@@ -11,9 +11,9 @@ class Drink extends Equatable implements GenericDataModel {
   final String name;
   final String description;
   final String picture;
-  final GenericPreviewDataModel author;
+  final Profile author;
   final Glass glass;
-  final GenericPreviewDataModel recipe;
+  final Recipe recipe;
   final Categories categories;
   final double averageRating;
 
@@ -35,8 +35,8 @@ class Drink extends Equatable implements GenericDataModel {
       name : map['name'] ?? "",
       description: map['description'] ?? "",
       picture: map['picture'] ?? "",
-      recipe: map['recipe'] != null ? GenericPreviewDataModel.fromMap(map['recipe']) : GenericPreviewDataModel.empty(),
-      author: map['author'] != null ? GenericPreviewDataModel.fromMap(map['author']) : GenericPreviewDataModel.empty(),
+      recipe: map['recipe'] != null ? Recipe.fromMap(map['recipe']) :  Recipe.empty(),
+      author: map['author'] != null ? Profile.fromMap(map['author']) :  Profile.empty(),
       glass: map['glass'] != null ? Glass.fromMap(map['glass']) :  Glass.empty(),
       categories: map['categories'] != null ? Categories.fromMap(map['categories']) : Categories.empty(),
       averageRating: map['average_rating'] ?? 0.0,
@@ -49,9 +49,9 @@ class Drink extends Equatable implements GenericDataModel {
       name : "",
       description: "",
       picture: "",
-      author: GenericPreviewDataModel.empty(),
+      author: Profile.empty(),
       glass: Glass.empty(),
-      recipe: GenericPreviewDataModel.empty(),
+      recipe: Recipe.empty(),
       categories: Categories.empty(),
       averageRating: 0.0,
     );
