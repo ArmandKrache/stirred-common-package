@@ -31,6 +31,14 @@ abstract class ApiRepository {
     required LoginRequest request,
   });
 
+  Future<DataState<void>> verifyToken({
+    required String accessToken,
+  });
+
+  Future<DataState<LoginResponse>> refreshToken({
+    required String refreshToken,
+  });
+
   /// Profiles
   Future<DataState<ProfileListResponse>> getProfileList({
     required ProfileListRequest request,

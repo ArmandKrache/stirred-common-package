@@ -43,6 +43,24 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   }
 
   @override
+  Future<DataState<void>> verifyToken({
+    required String accessToken
+  }) {
+    return getState0f<void>(request: () => _adminApiService.verifyToken(
+        {"token" : accessToken}),
+    );
+  }
+
+  @override
+  Future<DataState<LoginResponse>> refreshToken({
+    required String refreshToken
+  }) {
+    return getState0f<LoginResponse>(request: () => _adminApiService.refreshToken(
+        {"refresh" : refreshToken}),
+    );
+  }
+
+  @override
   Future<DataState<AllChoicesResponse>> getAllChoices() {
     return getState0f<AllChoicesResponse>(request: () => _stirredApiService.getAllChoices());
   }

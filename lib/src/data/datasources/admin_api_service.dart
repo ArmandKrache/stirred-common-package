@@ -13,4 +13,10 @@ abstract class AdminApiService {
   @POST('/auth/token/login/')
   Future<HttpResponse<LoginResponse>> getTokens(@Body() Map<String, dynamic> credentials);
 
+  @POST('/auth/token/verify/')
+  Future<HttpResponse<void>> verifyToken(@Body() Map<String, dynamic> token);
+
+  @POST('/auth/token/refresh/')
+  Future<HttpResponse<LoginResponse>> refreshToken(@Body() Map<String, dynamic> token);
+
 }
