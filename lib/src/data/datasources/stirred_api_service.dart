@@ -10,6 +10,7 @@ import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_
 import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_create_response.dart';
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_list_response.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile_list_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_create_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_patch_response.dart';
@@ -27,11 +28,16 @@ abstract class StirredApiService {
   @GET('/all-choices/')
   Future<HttpResponse<AllChoicesResponse>> getAllChoices();
 
+  /// Self
+
+  @GET('/self/')
+  Future<HttpResponse<Profile>> getSelfProfile();
+
   /// Profiles
-  @GET('/profile/')
+  @GET('/profiles/')
   Future<HttpResponse<ProfileListResponse>> getProfileList();
 
-  @GET('/profile/search/')
+  @GET('/profiles/search/')
   Future<HttpResponse<ProfileListResponse>> searchProfiles({
     @Query("query") String? query,
   });

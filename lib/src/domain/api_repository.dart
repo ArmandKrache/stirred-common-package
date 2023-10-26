@@ -1,5 +1,6 @@
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drinks_requests.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_requests.dart';
@@ -33,6 +34,8 @@ abstract class ApiRepository {
   Future<DataState<ProfileListResponse>> getProfileList({
     required ProfileListRequest request,
   });
+
+  Future<DataState<Profile>> getSelfProfile();
 
   Future<DataState<ProfileListResponse>> searchProfiles({
     required ProfilesSearchRequest request,

@@ -49,6 +49,34 @@ class _StirredApiService implements StirredApiService {
   }
 
   @override
+  Future<HttpResponse<Profile>> getSelfProfile() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<Profile>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/self/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = Profile.fromMap(_result.data!);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<HttpResponse<ProfileListResponse>> getProfileList() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -62,7 +90,7 @@ class _StirredApiService implements StirredApiService {
     )
             .compose(
               _dio.options,
-              '/profile/',
+              '/profiles/',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -92,7 +120,7 @@ class _StirredApiService implements StirredApiService {
     )
             .compose(
               _dio.options,
-              '/profile/search/',
+              '/profiles/search/',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -667,18 +695,18 @@ class _StirredApiService implements StirredApiService {
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<DrinksListResponse>>(Options(
-          method: 'GET',
-          headers: _headers,
-          extra: _extra,
-        )
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
             .compose(
-          _dio.options,
-          '/drinks/search/',
-          queryParameters: queryParameters,
-          data: _data,
-        )
+              _dio.options,
+              '/drinks/search/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
             .copyWith(
-            baseUrl: _combineBaseUrls(
+                baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
             ))));
@@ -686,7 +714,6 @@ class _StirredApiService implements StirredApiService {
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
-
 
   @override
   Future<HttpResponse<DrinkCreateResponse>> createDrink({

@@ -3,6 +3,7 @@ import 'package:stirred_common_domain/src/data/datasources/admin_api_service.dar
 import 'package:stirred_common_domain/src/data/datasources/stirred_api_service.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drinks_requests.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_requests.dart';
@@ -51,6 +52,12 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
     required ProfileListRequest request
   }) {
     return getState0f<ProfileListResponse>(request: () => _stirredApiService.getProfileList(),
+    );
+  }
+
+  @override
+  Future<DataState<Profile>> getSelfProfile() {
+    return getState0f<Profile>(request: () => _stirredApiService.getSelfProfile(),
     );
   }
 
