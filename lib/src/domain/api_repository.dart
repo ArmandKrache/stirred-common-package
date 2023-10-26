@@ -1,3 +1,4 @@
+import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drinks_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
@@ -116,6 +117,10 @@ abstract class ApiRepository {
 
   Future<DataState<DrinkCreateResponse>> createDrink({
     required DrinkCreateRequest request,
+  });
+
+  Future<DataState<Drink>> retrieveDrink({
+    required DrinkRetrieveRequest request,
   });
 
   Future<DataState<DrinkPatchResponse>> patchDrink({

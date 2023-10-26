@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:stirred_common_domain/src/config.dart';
+import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/all_choices_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_create_response.dart';
@@ -147,6 +148,9 @@ abstract class StirredApiService {
     @Part() required String author,
     @Part() required String glass,
   });
+
+  @GET("/drinks/{id}/")
+  Future<HttpResponse<Drink>> retrieveDrink(@Path() String id);
 
   @PATCH("/drinks/{id}/")
   @MultiPart()

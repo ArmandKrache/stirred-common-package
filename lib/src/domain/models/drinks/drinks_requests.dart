@@ -52,6 +52,12 @@ class DrinksSearchRequest {
   DrinksSearchRequest({this.query = ""});
 }
 
+class DrinkRetrieveRequest {
+  final String id;
+
+  DrinkRetrieveRequest({required this.id});
+}
+
 class DrinkDeleteRequest {
   final String id;
 

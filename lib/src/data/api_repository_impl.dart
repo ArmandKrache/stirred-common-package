@@ -1,6 +1,7 @@
 import 'package:stirred_common_domain/src/data/datasources/base/base_api_repository.dart';
 import 'package:stirred_common_domain/src/data/datasources/admin_api_service.dart';
 import 'package:stirred_common_domain/src/data/datasources/stirred_api_service.dart';
+import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drinks_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
@@ -243,6 +244,15 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
       author: request.author,
       glass: request.glass,
       categories: request.categories
+    ));
+  }
+
+  @override
+  Future<DataState<Drink>> retrieveDrink({
+    required DrinkRetrieveRequest request
+  }) {
+    return getState0f<Drink>(request: () => _stirredApiService.retrieveDrink(
+        request.id
     ));
   }
 
