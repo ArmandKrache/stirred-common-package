@@ -14,6 +14,7 @@ dependencies:
   retrofit: ^4.0.1
   logger: ^2.0.2
   equatable: ^2.0.5
+  get_it: ^7.6.0
 
 dev_dependencies:
   lints: ^2.0.0
