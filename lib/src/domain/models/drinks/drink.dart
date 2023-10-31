@@ -19,6 +19,8 @@ class Drink extends Equatable implements GenericDataModel {
   final Categories categories;
   final double averageRating;
   final List<Rating> ratings;
+  final int ratingsCount;
+  final Rating? userRating;
 
   const Drink({
     required this.id,
@@ -31,6 +33,8 @@ class Drink extends Equatable implements GenericDataModel {
     required this.categories,
     required this.averageRating,
     required this.ratings,
+    required this.ratingsCount,
+    required this.userRating,
   });
 
   factory Drink.fromMap(Map<String, dynamic> map) {
@@ -47,6 +51,8 @@ class Drink extends Equatable implements GenericDataModel {
       ratings: List<Rating>.from((map['ratings'] ?? []).map(
               (element) => Rating.fromMap(element))
       ),
+      ratingsCount: map['ratings_count'] ?? 0,
+      userRating: map['user_rating']
     );
   }
 
@@ -61,7 +67,9 @@ class Drink extends Equatable implements GenericDataModel {
       recipe: Recipe.empty(),
       categories: Categories.empty(),
       averageRating: 0.0,
-      ratings: []
+      ratings: [],
+      ratingsCount: 0,
+      userRating: null
     );
   }
 
