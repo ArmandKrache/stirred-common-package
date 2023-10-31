@@ -6,6 +6,9 @@ import 'package:stirred_common_domain/src/domain/models/profiles/profile_request
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/login_request.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/rating_create_response.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/rating_patch_response.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/ratings_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipes_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/all_choices_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_create_response.dart';
@@ -137,6 +140,20 @@ abstract class ApiRepository {
 
   Future<void> deleteDrink({
     required DrinkDeleteRequest request,
+  });
+
+  /// Ratings
+
+  Future<DataState<RatingCreateResponse>> createRating({
+    required RatingCreateRequest request,
+  });
+
+  Future<DataState<RatingPatchResponse>> patchRating({
+    required RatingPatchRequest request,
+  });
+
+  Future<void> deleteRating({
+    required RatingDeleteRequest request,
   });
 
 }

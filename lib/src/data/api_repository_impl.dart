@@ -9,6 +9,9 @@ import 'package:stirred_common_domain/src/domain/models/profiles/profile_request
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/login_request.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/rating_create_response.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/rating_patch_response.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/ratings_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipes_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/all_choices_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_create_response.dart';
@@ -295,6 +298,32 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
     required DrinkDeleteRequest request
   }) {
     return _stirredApiService.deleteDrink(
+        request.id
+    );
+  }
+
+
+  /// Ratings
+
+  @override
+  Future<DataState<RatingCreateResponse>> createRating({
+    required RatingCreateRequest request
+  }) {
+    return getState0f<RatingCreateResponse>(request: () => _stirredApiService.createRating(request.toJson()));
+  }
+
+  @override
+  Future<DataState<RatingPatchResponse>> patchRating({
+    required RatingPatchRequest request
+  }) {
+    return getState0f<RatingPatchResponse>(request: () => _stirredApiService.patchRating(request.id, request.body));
+  }
+
+  @override
+  Future<void> deleteRating({
+    required RatingDeleteRequest request
+  }) {
+    return _stirredApiService.deleteRating(
         request.id
     );
   }

@@ -13,6 +13,8 @@ import 'package:stirred_common_domain/src/domain/models/glasses/glasses_create_r
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_list_response.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile_list_response.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/rating_create_response.dart';
+import 'package:stirred_common_domain/src/domain/models/rating/rating_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_create_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipes_list_response.dart';
@@ -170,5 +172,16 @@ abstract class StirredApiService {
 
   @DELETE("/drinks/{id}/")
   Future<void> deleteDrink(@Path() String id);
+
+  /// Ratings
+
+  @POST('/ratings/create/')
+  Future<HttpResponse<RatingCreateResponse>> createRating(@Body() Map<String, dynamic> body);
+
+  @PATCH('/ratings/{id}/')
+  Future<HttpResponse<RatingPatchResponse>> patchRating(@Path() String id, @Body() Map<String, dynamic> body);
+
+  @DELETE("/ratings/{id}/")
+  Future<void> deleteRating(@Path() String id);
 
 }

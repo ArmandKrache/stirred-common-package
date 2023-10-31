@@ -7,7 +7,7 @@ class Recipe extends Equatable implements GenericDataModel {
   final String description;
   final int preparationTime;
   final String difficulty;
-  final String instructions;
+  final List<String> instructions;
   final List<RecipeIngredient> ingredients;
 
   const Recipe({
@@ -27,9 +27,11 @@ class Recipe extends Equatable implements GenericDataModel {
       description: map['description'] ?? "",
       preparationTime: map['preparation_time'] ?? 0,
       difficulty: map['difficulty'] ?? "",
-      instructions: map['instructions'] ?? "",
+      instructions: List<String>.from((map['instructions'] ?? []).map(
+          (element) => element.toString())
+      ),
       ingredients: List<RecipeIngredient>.from((map['ingredients'] ?? []).map(
-              (element) => RecipeIngredient.fromMap(element))
+          (element) => RecipeIngredient.fromMap(element))
       ),
     );
   }
@@ -41,7 +43,7 @@ class Recipe extends Equatable implements GenericDataModel {
       description: "",
       preparationTime: 0,
       difficulty: "",
-      instructions: "",
+      instructions: [],
       ingredients: [],
     );
   }

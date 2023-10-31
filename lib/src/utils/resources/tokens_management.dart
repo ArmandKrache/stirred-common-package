@@ -75,6 +75,8 @@ class TokenInterceptor extends Interceptor {
       final originalRequest = err.requestOptions;
       final uri = originalRequest.uri;
 
+      logger.d(isRefreshing[uri]);
+
       // Ensure that the refresh for this URI is not already in progress
       if (isRefreshing[uri] == null) {
         isRefreshing[uri] = true;

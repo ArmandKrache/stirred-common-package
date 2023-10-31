@@ -40,6 +40,10 @@ export "src/domain/models/generic_preview_data_model.dart";
 export "src/domain/models/login_request.dart";
 export "src/domain/models/login_response.dart";
 export "src/domain/models/preferences.dart";
+export "src/domain/models/rating/rating.dart";
+export "src/domain/models/rating/rating_create_response.dart";
+export "src/domain/models/rating/rating_patch_response.dart";
+export "src/domain/models/rating/ratings_requests.dart";
 
 export "src/utils/resources/data_state.dart";
 export "src/utils/resources/debouncer.dart";
