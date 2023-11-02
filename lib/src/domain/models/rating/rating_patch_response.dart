@@ -1,4 +1,5 @@
 
+import 'package:stirred_common_domain/src/config.dart';
 import 'package:stirred_common_domain/src/domain/models/categories.dart';
 import 'package:stirred_common_domain/src/domain/models/rating/rating.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe.dart';

@@ -38,6 +38,7 @@ class Drink extends Equatable implements GenericDataModel {
   });
 
   factory Drink.fromMap(Map<String, dynamic> map) {
+    //logger.d(map);
     return Drink(
       id: map['id'] ?? "",
       name : map['name'] ?? "",
@@ -52,7 +53,7 @@ class Drink extends Equatable implements GenericDataModel {
               (element) => Rating.fromMap(element))
       ),
       ratingsCount: map['ratings_count'] ?? 0,
-      userRating: map['user_rating']
+      userRating: map['user_rating'] != null ? Rating.fromMap(map['user_rating']) : null
     );
   }
 

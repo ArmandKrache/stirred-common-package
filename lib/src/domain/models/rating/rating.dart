@@ -23,12 +23,12 @@ class Rating extends Equatable {
   factory Rating.fromMap(Map<String, dynamic> map) {
     return Rating(
       id: map['id'] ?? "",
-      username : map['user']['name'] ?? "",
-      userPicture : map['user']['picture'] ?? "",
+      username : map['user']?['name'] ?? "",
+      userPicture : map['user']?['picture'] ?? "",
       comment: map['comment'] ?? "",
       rating: map['rating'] ?? 0,
       upvotes: map['upvotes'] ?? 0,
-      creationTime: map['creation_date'] != null ? DateTime.now() : DateTime(map['creation_date']), ///TODO : parse datetime
+      creationTime: map['creation_date'] == null ? DateTime.now() : DateTime.parse(map['creation_date']),
     );
   }
 
