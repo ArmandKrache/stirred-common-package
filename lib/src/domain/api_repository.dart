@@ -156,4 +156,11 @@ abstract class ApiRepository {
     required RatingDeleteRequest request,
   });
 
+
+  /// Preferences
+
+  Future<DataState<dynamic>> favoriteAction({
+    required String drinkId,
+  });
+
 }

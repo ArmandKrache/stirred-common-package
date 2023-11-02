@@ -184,4 +184,9 @@ abstract class StirredApiService {
   @DELETE("/ratings/{id}/")
   Future<void> deleteRating(@Path() String id);
 
+  /// Preferences
+
+  @POST('self/favorites/')
+  Future<HttpResponse<dynamic>> favoriteAction(@Body() Map<String, dynamic> body);
+
 }

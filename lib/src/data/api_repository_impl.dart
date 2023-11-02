@@ -327,4 +327,14 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
         request.id
     );
   }
+
+  /// Preferences
+
+  @override
+  Future<DataState<dynamic>> favoriteAction({
+    required String drinkId
+  }) {
+    return getState0f<dynamic>(request: () => _stirredApiService.favoriteAction({"drink_id": drinkId}));
+  }
+
 }

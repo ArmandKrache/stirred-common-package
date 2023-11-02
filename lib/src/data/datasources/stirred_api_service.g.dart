@@ -210,9 +210,9 @@ class _StirredApiService implements StirredApiService {
       'description',
       description,
     ));
-    _data.files.add(MapEntry(
+    _data.fields.add(MapEntry(
       'picture',
-      picture,
+      jsonEncode(picture),
     ));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<GlassesCreateResponse>>(Options(
@@ -261,12 +261,10 @@ class _StirredApiService implements StirredApiService {
         description,
       ));
     }
-    if (picture != null) {
-      _data.files.add(MapEntry(
-        'picture',
-        picture,
-      ));
-    }
+    _data.fields.add(MapEntry(
+      'picture',
+      jsonEncode(picture ?? <String, dynamic>{}),
+    ));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<GlassPatchResponse>>(Options(
       method: 'PATCH',
@@ -385,19 +383,19 @@ class _StirredApiService implements StirredApiService {
     final _headers = <String, dynamic>{};
     final _data = FormData();
     _data.fields.add(MapEntry(
-      "name",
+      'name',
       name,
     ));
     _data.fields.add(MapEntry(
-      "description",
+      'description',
       description,
     ));
-    _data.files.add(MapEntry(
-      "picture",
-      picture,
+    _data.fields.add(MapEntry(
+      'picture',
+      jsonEncode(picture),
     ));
     _data.fields.add(MapEntry(
-      "categories",
+      'categories',
       jsonEncode(categories),
     ));
     matches.forEach((i) {
@@ -452,18 +450,14 @@ class _StirredApiService implements StirredApiService {
         description,
       ));
     }
-    if (picture != null) {
-      _data.files.add(MapEntry(
-        'picture',
-        picture,
-      ));
-    }
-    if (categories != null) {
-      _data.fields.add(MapEntry(
-        'categories',
-        jsonEncode(categories),
-      ));
-    }
+    _data.fields.add(MapEntry(
+      'picture',
+      jsonEncode(picture ?? <String, dynamic>{}),
+    ));
+    _data.fields.add(MapEntry(
+      'categories',
+      jsonEncode(categories),
+    ));
     matches?.forEach((i) {
       _data.fields.add(MapEntry('matches', i));
     });
@@ -737,9 +731,9 @@ class _StirredApiService implements StirredApiService {
       'description',
       description,
     ));
-    _data.files.add(MapEntry(
+    _data.fields.add(MapEntry(
       'picture',
-      picture,
+      jsonEncode(picture),
     ));
     _data.fields.add(MapEntry(
       'categories',
@@ -836,18 +830,14 @@ class _StirredApiService implements StirredApiService {
         description,
       ));
     }
-    if (picture != null) {
-     _data.files.add(MapEntry(
-       'picture',
-       picture,
-     ));
-    }
-    if (categories != null) {
-      _data.fields.add(MapEntry(
-        'categories',
-        jsonEncode(categories),
-      ));
-    }
+    _data.fields.add(MapEntry(
+      'picture',
+      jsonEncode(picture ?? <String, dynamic>{}),
+    ));
+    _data.fields.add(MapEntry(
+      'categories',
+      jsonEncode(categories),
+    ));
     if (recipe != null) {
       _data.fields.add(MapEntry(
         'recipe',
@@ -997,6 +987,36 @@ class _StirredApiService implements StirredApiService {
           _dio.options.baseUrl,
           baseUrl,
         ))));
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> favoriteAction(
+      Map<String, dynamic> body) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(body);
+    final _result =
+        await _dio.fetch(_setStreamType<HttpResponse<dynamic>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'self/favorites/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

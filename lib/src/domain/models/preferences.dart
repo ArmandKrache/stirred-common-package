@@ -18,7 +18,7 @@ class Preferences extends Equatable {
   });
 
   factory Preferences.fromMap(Map<String, dynamic> map) {
-    logger.d(map);
+    //logger.d(map);
     return Preferences(
       favorites: List<GenericPreviewDataModel>.from((map['favorites'] ?? []).map(
               (element) => GenericPreviewDataModel.fromMap(element))
