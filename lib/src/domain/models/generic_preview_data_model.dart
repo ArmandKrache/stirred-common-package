@@ -1,13 +1,13 @@
 import 'package:stirred_common_domain/src/domain/models/generic_data_model.dart';
 
 class GenericPreviewDataModel implements GenericDataModel {
-  final String? id;
+  final String id;
   final String? name;
   final String? description;
   final String? picture;
 
   const GenericPreviewDataModel({
-    this.id,
+    required this.id,
     this.name,
     this.description,
     this.picture,

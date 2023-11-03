@@ -1,6 +1,6 @@
 library stirred_common_domain;
 
-export "src/config.dart" show logger, storage, baseMediaUrl, baseStirredApiUrl, baseStirredAdminUrl, localUrl;
+export "src/config.dart" show logger, storage, baseMediaUrl, baseStirredApiUrl, baseStirredAdminUrl, localUrl, baseUrl;
 export "src/locator.dart";
 
 export "src/data/api_repository_impl.dart";

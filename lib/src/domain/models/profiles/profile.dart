@@ -1,3 +1,4 @@
+import 'package:stirred_common_domain/src/config.dart';
 import 'package:stirred_common_domain/src/domain/models/generic_data_model.dart';
 import 'package:stirred_common_domain/src/domain/models/preferences.dart';
 import 'package:equatable/equatable.dart';
@@ -5,7 +6,6 @@ import 'package:equatable/equatable.dart';
 class Profile extends Equatable implements GenericDataModel {
   final String id;
   final String email;
-  final String username;
   final String name;
   final String description;
   final String picture;
@@ -15,7 +15,6 @@ class Profile extends Equatable implements GenericDataModel {
   const Profile({
     required this.id,
     required this.email,
-    required this.username,
     required this.name,
     required this.description,
     required this.picture,
@@ -24,10 +23,10 @@ class Profile extends Equatable implements GenericDataModel {
   });
 
   factory Profile.fromMap(Map<String, dynamic> map) {
+    ///logger.d(map);
     return Profile(
       id: map['id'] ?? "",
       email: map['email'] ?? "",
-      username : map['name'] ?? "",
       name : map['name'] ?? "",
       description: map['description'] ?? "",
       picture: map['picture'] ?? "",
@@ -39,7 +38,6 @@ class Profile extends Equatable implements GenericDataModel {
   factory Profile.empty() => Profile(
       id: "",
       email: "",
-      username : "",
       name : "",
       description: "",
       picture: "",
@@ -52,6 +50,6 @@ class Profile extends Equatable implements GenericDataModel {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [id, username, email];
+  List<Object?> get props => [id, name, email];
 
 }
