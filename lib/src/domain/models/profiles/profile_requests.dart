@@ -12,14 +12,12 @@ class ProfilesSearchRequest {
 class ProfileCreateRequest {
   final String name;
   final String description;
-  final String email;
   final String birthdate;
   final MultipartFile picture;
 
   ProfileCreateRequest({
     required this.name,
     required this.description,
-    required this.email,
     required this.birthdate,
     required this.picture,
   });
@@ -29,7 +27,6 @@ class ProfilePatchRequest {
   final String id;
   final String? name;
   final String? description;
-  final String? email;
   final String? birthdate;
   final MultipartFile? picture;
 
@@ -37,7 +34,6 @@ class ProfilePatchRequest {
     required this.id,
     this.name,
     this.description,
-    this.email,
     this.birthdate,
     this.picture,
   });

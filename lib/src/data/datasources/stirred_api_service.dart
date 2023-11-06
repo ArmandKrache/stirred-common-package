@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:stirred_common_domain/src/config.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
@@ -53,7 +54,6 @@ abstract class StirredApiService {
     @Part() required String name,
     @Part() required String description,
     @Part() required MultipartFile picture,
-    @Part() required String email,
     @Part() required String birthdate,
   });
 
@@ -68,7 +68,6 @@ abstract class StirredApiService {
       @Part() String? name,
       @Part() String? description,
       @Part() MultipartFile? picture,
-      @Part() String? email,
       @Part() String? birthdate,
     });
 
