@@ -5,6 +5,8 @@ import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drinks_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile_create_response.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_requests.dart';
@@ -89,6 +91,33 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   }) {
     return getState0f<ProfileListResponse>(request: () => _stirredApiService.searchProfiles(query: request.query),
     );
+  }
+
+  @override
+  Future<DataState<ProfileCreateResponse>> createProfile({
+    required ProfileCreateRequest request
+  }) {
+    return getState0f<ProfileCreateResponse>(request: () => _stirredApiService.createProfile(
+        name: request.name,
+        description: request.description,
+        picture: request.picture,
+        email: request.email,
+        birthdate: request.birthdate,
+    ));
+  }
+
+  @override
+  Future<DataState<ProfilePatchResponse>> patchProfile({
+    required ProfilePatchRequest request
+  }) {
+    return getState0f<ProfilePatchResponse>(request: () => _stirredApiService.patchProfile(
+        request.id,
+        name: request.name,
+        description: request.description,
+        picture: request.picture,
+        email: request.email,
+        birthdate: request.birthdate,
+    ));
   }
 
   /// Glasses

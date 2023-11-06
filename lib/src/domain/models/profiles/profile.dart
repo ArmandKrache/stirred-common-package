@@ -26,7 +26,7 @@ class Profile extends Equatable implements GenericDataModel {
     ///logger.d(map);
     return Profile(
       id: map['id'] ?? "",
-      email: map['email'] ?? "",
+      email: map["user"]?['email'] ?? "",
       name : map['name'] ?? "",
       description: map['description'] ?? "",
       picture: map['picture'] ?? "",

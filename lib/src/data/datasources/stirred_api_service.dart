@@ -12,7 +12,9 @@ import 'package:stirred_common_domain/src/domain/models/ingredients/ingredients_
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_create_response.dart';
 import 'package:stirred_common_domain/src/domain/models/glasses/glasses_list_response.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile_create_response.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile_list_response.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/rating/rating_create_response.dart';
 import 'package:stirred_common_domain/src/domain/models/rating/rating_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_create_response.dart';
@@ -44,6 +46,31 @@ abstract class StirredApiService {
   Future<HttpResponse<ProfileListResponse>> searchProfiles({
     @Query("query") String? query,
   });
+
+  @POST('/profiles/create/')
+  @MultiPart()
+  Future<HttpResponse<ProfileCreateResponse>> createProfile({
+    @Part() required String name,
+    @Part() required String description,
+    @Part() required MultipartFile picture,
+    @Part() required String email,
+    @Part() required String birthdate,
+  });
+
+  @GET("/profiles/{id}/")
+  Future<HttpResponse<Profile>> retrieveProfile(@Path() String id);
+
+  @PATCH("/profiles/{id}/")
+  @MultiPart()
+  Future<HttpResponse<ProfilePatchResponse>> patchProfile(
+    @Path() String id,
+    {
+      @Part() String? name,
+      @Part() String? description,
+      @Part() MultipartFile? picture,
+      @Part() String? email,
+      @Part() String? birthdate,
+    });
 
   /// Glasses
   @GET('/glasses/')
