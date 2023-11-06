@@ -27,6 +27,8 @@ export "src/domain/models/ingredients/ingredients_list_response.dart";
 export "src/domain/models/ingredients/ingredients_patch_response.dart";
 export "src/domain/models/profiles/profile.dart";
 export "src/domain/models/profiles/profile_list_response.dart";
+export "src/domain/models/profiles/profile_patch_response.dart";
+export "src/domain/models/profiles/profile_create_response.dart";
 export "src/domain/models/profiles/profile_requests.dart";
 export "src/domain/models/recipes/recipe.dart";
 export "src/domain/models/recipes/recipe_create_response.dart";

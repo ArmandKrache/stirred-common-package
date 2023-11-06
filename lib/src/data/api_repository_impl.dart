@@ -101,7 +101,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
         name: request.name,
         description: request.description,
         picture: request.picture,
-        birthdate: request.birthdate,
+        date_of_birth: request.birthdate,
     ));
   }
 
@@ -114,7 +114,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
         name: request.name,
         description: request.description,
         picture: request.picture,
-        birthdate: request.birthdate,
+        date_of_birth: request.birthdate,
     ));
   }
 

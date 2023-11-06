@@ -139,7 +139,7 @@ class _StirredApiService implements StirredApiService {
     required String name,
     required String description,
     required MultipartFile picture,
-    required String birthdate,
+    required String date_of_birth,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -158,8 +158,8 @@ class _StirredApiService implements StirredApiService {
       picture,
     ));
     _data.fields.add(MapEntry(
-      'birthdate',
-      birthdate,
+      'date_of_birth',
+      date_of_birth,
     ));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<HttpResponse<ProfileCreateResponse>>(Options(
@@ -218,7 +218,7 @@ class _StirredApiService implements StirredApiService {
     String? name,
     String? description,
     MultipartFile? picture,
-    String? birthdate,
+    String? date_of_birth,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -243,10 +243,10 @@ class _StirredApiService implements StirredApiService {
         picture,
       ));
     }
-    if (birthdate != null) {
+    if (date_of_birth != null) {
       _data.fields.add(MapEntry(
-        'birthdate',
-        birthdate,
+        'date_of_birth',
+        date_of_birth,
       ));
     }
     final _result = await _dio.fetch<Map<String, dynamic>>(

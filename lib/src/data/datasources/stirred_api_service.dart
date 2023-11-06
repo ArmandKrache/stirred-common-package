@@ -54,7 +54,7 @@ abstract class StirredApiService {
     @Part() required String name,
     @Part() required String description,
     @Part() required MultipartFile picture,
-    @Part() required String birthdate,
+    @Part() required String date_of_birth,
   });
 
   @GET("/profiles/{id}/")
@@ -68,7 +68,7 @@ abstract class StirredApiService {
       @Part() String? name,
       @Part() String? description,
       @Part() MultipartFile? picture,
-      @Part() String? birthdate,
+      @Part() String? date_of_birth,
     });
 
   /// Glasses
