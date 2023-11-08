@@ -1,3 +1,5 @@
+import 'package:stirred_common_domain/src/domain/models/auth/signup_response.dart';
+import 'package:stirred_common_domain/src/domain/models/auth/signup_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drinks_requests.dart';
@@ -31,6 +33,10 @@ import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 abstract class ApiRepository {
 
   Future<DataState<AllChoicesResponse>> getAllChoices();
+
+  Future<DataState<SignupResponse>> signup({
+    required SignupRequest request,
+  });
 
   Future<DataState<LoginResponse>> getTokens({
     required LoginRequest request,

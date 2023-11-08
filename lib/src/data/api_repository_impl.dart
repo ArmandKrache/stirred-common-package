@@ -1,6 +1,8 @@
 import 'package:stirred_common_domain/src/data/datasources/base/base_api_repository.dart';
 import 'package:stirred_common_domain/src/data/datasources/admin_api_service.dart';
 import 'package:stirred_common_domain/src/data/datasources/stirred_api_service.dart';
+import 'package:stirred_common_domain/src/domain/models/auth/signup_response.dart';
+import 'package:stirred_common_domain/src/domain/models/auth/signup_requests.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drinks_requests.dart';
@@ -37,6 +39,15 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   final StirredApiService _stirredApiService;
 
   ApiRepositoryImpl(this._adminApiService, this._stirredApiService);
+
+  @override
+  Future<DataState<SignupResponse>> signup({
+    required SignupRequest request
+  }) {
+    return getState0f<SignupResponse>(request: () => _adminApiService.signup(
+        {"username" : request.username, "password" : request.password}),
+    );
+  }
 
   @override
   Future<DataState<LoginResponse>> getTokens({

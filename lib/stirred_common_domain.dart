@@ -8,6 +8,8 @@ export "src/data/datasources/admin_api_service.dart";
 export "src/data/datasources/stirred_api_service.dart";
 
 export "src/domain/api_repository.dart";
+export "src/domain/models/auth/signup_response.dart";
+export "src/domain/models/auth/signup_requests.dart";
 export "src/domain/models/drinks/drink.dart";
 export "src/domain/models/drinks/drink_create_response.dart";
 export "src/domain/models/drinks/drink_patch_response.dart";
