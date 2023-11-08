@@ -44,6 +44,10 @@ abstract class ApiRepository {
     required String refreshToken,
   });
 
+  Future<DataState<void>> checkUsernameValidity({
+    required String username,
+  });
+
   /// Profiles
   Future<DataState<ProfileListResponse>> getProfileList({
     required ProfileListRequest request,

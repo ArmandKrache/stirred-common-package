@@ -66,6 +66,15 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
   }
 
   @override
+  Future<DataState<void>> checkUsernameValidity({
+    required String username
+  }) {
+    return getState0f<void>(request: () => _adminApiService.checkUsernameValidity(
+        {"username" : username}),
+    );
+  }
+
+  @override
   Future<DataState<AllChoicesResponse>> getAllChoices() {
     return getState0f<AllChoicesResponse>(request: () => _stirredApiService.getAllChoices());
   }
