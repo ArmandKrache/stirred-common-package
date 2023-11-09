@@ -45,7 +45,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
     required SignupRequest request
   }) {
     return getState0f<SignupResponse>(request: () => _adminApiService.signup(
-        {"username" : request.username, "password" : request.password}),
+        {"username" : request.email, "email" : request.email, "password" : request.password}),
     );
   }
 
@@ -118,6 +118,7 @@ class ApiRepositoryImpl extends BaseApiRepository implements ApiRepository {
     required ProfileCreateRequest request
   }) {
     return getState0f<ProfileCreateResponse>(request: () => _stirredApiService.createProfile(
+        user: request.user,
         name: request.name,
         description: request.description,
         picture: request.picture,

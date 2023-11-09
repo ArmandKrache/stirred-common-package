@@ -51,6 +51,7 @@ abstract class StirredApiService {
   @POST('/profiles/create/')
   @MultiPart()
   Future<HttpResponse<ProfileCreateResponse>> createProfile({
+    @Part() required String user,
     @Part() required String name,
     @Part() required String description,
     @Part() required MultipartFile picture,

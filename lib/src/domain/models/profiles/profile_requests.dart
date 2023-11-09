@@ -10,12 +10,14 @@ class ProfilesSearchRequest {
 }
 
 class ProfileCreateRequest {
+  final String user;
   final String name;
   final String description;
   final String birthdate;
   final MultipartFile picture;
 
   ProfileCreateRequest({
+    required this.user,
     required this.name,
     required this.description,
     required this.birthdate,

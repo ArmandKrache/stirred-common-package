@@ -136,6 +136,7 @@ class _StirredApiService implements StirredApiService {
 
   @override
   Future<HttpResponse<ProfileCreateResponse>> createProfile({
+    required String user,
     required String name,
     required String description,
     required MultipartFile picture,
@@ -145,6 +146,10 @@ class _StirredApiService implements StirredApiService {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = FormData();
+    _data.fields.add(MapEntry(
+      'user',
+      user,
+    ));
     _data.fields.add(MapEntry(
       'name',
       name,

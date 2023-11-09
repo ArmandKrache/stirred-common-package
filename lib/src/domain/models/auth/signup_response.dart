@@ -14,8 +14,8 @@ class SignupResponse extends Equatable {
   factory SignupResponse.fromMap(Map<String, dynamic> map) {
     logger.d(map);
     return SignupResponse(
-      access: map['access'] ?? "",
-      refresh: map['refresh'] ?? "",
+      access: map["tokens"]['access'] ?? "",
+      refresh: map["tokens"]['refresh'] ?? "",
     );
   }
 

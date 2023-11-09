@@ -28,12 +28,6 @@ Future<void> deleteTokens() async {
   await storage.delete(key: 'refresh_token');
 }
 
-/// TODO:
-/// 1: move locator to this package; C
-/// 1.5: Chekc everything still works;
-/// 2: Implement refresh token method; C
-/// 3: Implement Refresh onError
-
 Future<String?> refreshToken() async {
   String? token = await getRefreshToken();
   if (token == null) {
@@ -57,7 +51,9 @@ class TokenInterceptor extends Interceptor {
   @override
   Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     final token = await getAccessToken();
-    options.headers['Authorization'] = 'JWT $token';
+    if (token != null) {
+      options.headers['Authorization'] = 'JWT $token';
+    }
     super.onRequest(options, handler);
   }
 
