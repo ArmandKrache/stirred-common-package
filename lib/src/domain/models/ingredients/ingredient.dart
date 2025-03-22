@@ -1,83 +1,21 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stirred_common_domain/src/domain/models/categories.dart';
-import 'package:stirred_common_domain/src/domain/models/generic_data_model.dart';
-import 'package:equatable/equatable.dart';
+import 'package:stirred_common_domain/src/domain/models/ingredients/ingredient_match.dart';
 
-class Ingredient extends Equatable implements GenericDataModel {
-  final String id;
-  final String name;
-  final String description;
-  final String picture;
-  final List<IngredientMatch> matches; // TODO: replace by generic data model
-  final Categories categories;
+part 'ingredient.freezed.dart';
+part 'ingredient.g.dart';
 
-  const Ingredient({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.picture,
-    required this.matches,
-    required this.categories,
-  });
+@freezed
+class Ingredient with _$Ingredient {
+  const factory Ingredient({
+    required String id,
+    required String name,
+    required String description,
+    required String picture,
+    @Default([]) List<IngredientMatch> matches,
+    required Categories categories,
+  }) = _Ingredient;
 
-  factory Ingredient.fromMap(Map<String, dynamic> map) {
-    return Ingredient(
-      id: map['id'] ?? "",
-      name : map['name'] ?? "",
-      description: map['description'] ?? "",
-      picture: map['picture'] ?? "",
-      matches: List<IngredientMatch>.from((map['matches'] ?? []).map(
-        (element) => IngredientMatch.fromMap(element))
-      ),
-      categories: map['categories'] != null ?  Categories.fromMap(map['categories']) : Categories.empty(),
-    );
-  }
-
-  factory Ingredient.empty() {
-    return Ingredient(
-      id: "",
-      name : "",
-      description: "",
-      picture: "",
-      matches: const [],
-      categories: Categories.empty(),
-    );
-  }
-
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [id, name, description];
-
-}
-
-class IngredientMatch extends Equatable {
-  final String id;
-  final String name;
-
-  const IngredientMatch({
-    required this.id,
-    required this.name,
-  });
-
-  factory IngredientMatch.fromMap(Map<String, dynamic> map) {
-    return IngredientMatch(
-      id: map['id'] ?? "",
-      name : map['name'] ?? "",
-    );
-  }
-
-  factory IngredientMatch.empty() {
-    return const IngredientMatch(
-      id: "",
-      name : "",
-    );
-  }
-
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [id, name];
-
+  factory Ingredient.fromJson(Map<String, dynamic> json) =>
+      _$IngredientFromJson(json);
 }

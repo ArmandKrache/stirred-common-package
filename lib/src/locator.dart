@@ -1,28 +1,22 @@
-import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
-import 'package:stirred_common_domain/stirred_common_domain.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stirred_common_domain/src/data/apis/admin_api_service.dart';
+import 'package:stirred_common_domain/src/data/repositories/api_repository_impl.dart';
+import 'package:stirred_common_domain/src/data/apis/stirred_api_service.dart';
+import 'package:stirred_common_domain/src/domain/repositories/api_repository.dart';
+import 'package:stirred_common_domain/src/data/http_client.dart';
+import 'package:stirred_common_domain/src/config.dart';
 
-final locator = GetIt.instance;
+final adminHttpClientProvider = Provider<HttpClient>((ref) {
+  return HttpClient(baseUrl: baseStirredAdminUrl);
+});
 
-Future<void> initializeDependencies () async {
-  /*final db = await $FloorAppDatabase.databaseBuilder(databaseName).build();
-  locator.registerSingleton<AppDatabase>(db);
+final stirredHttpClientProvider = Provider<HttpClient>((ref) {
+  return HttpClient(baseUrl: baseStirredApiUrl);
+});
 
-  locator.registerSingleton<DatabaseRepository>(
-    DatabaseRepositoryImpl(locator<AppDatabase>())
-  );*/
-
-  final dio = Dio();
-  dio.options = BaseOptions();
-  dio.interceptors.add(TokenInterceptor());
-  locator.registerSingleton<Dio>(dio);
-  locator.registerSingleton<AdminApiService>(
-    AdminApiService(locator<Dio>()),
+final apiRepositoryProvider = Provider<ApiRepository>((ref) {
+  return ApiRepositoryImpl(
+    ref.watch(adminApiServiceProvider),
+    ref.watch(stirredApiServiceProvider),
   );
-  locator.registerSingleton<StirredApiService>(
-    StirredApiService(locator<Dio>()),
-  );
-  locator.registerSingleton<ApiRepository>(
-    ApiRepositoryImpl(locator<AdminApiService>(), locator<StirredApiService>()),
-  );
- }
+});

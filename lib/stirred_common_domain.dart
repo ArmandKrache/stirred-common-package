@@ -1,13 +1,14 @@
-library stirred_common_domain;
+library;
 
 export "src/config.dart" show logger, storage, baseMediaUrl, baseStirredApiUrl, baseStirredAdminUrl, localUrl, baseUrl;
 export "src/locator.dart";
 
-export "src/data/api_repository_impl.dart";
-export "src/data/datasources/admin_api_service.dart";
-export "src/data/datasources/stirred_api_service.dart";
+export "src/data/repositories/api_repository_impl.dart";
+export "src/data/apis/admin_api_service.dart";
+export "src/data/apis/stirred_api_service.dart";
 
-export "src/domain/api_repository.dart";
+export "src/domain/repositories/api_repository.dart";
+
 export "src/domain/models/auth/signup_response.dart";
 export "src/domain/models/auth/signup_requests.dart";
 export "src/domain/models/drinks/drink.dart";

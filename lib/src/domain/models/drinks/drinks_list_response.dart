@@ -13,7 +13,7 @@ class DrinksListResponse extends Equatable {
   factory DrinksListResponse.fromMap(Map<String, dynamic> map) {
     return DrinksListResponse(
       drinks: List<Drink>.from((map['results'] ?? []).map<dynamic>((element) {
-        return Drink.fromMap(element);
+        return Drink.fromJson(element);
       })),
     );
   }

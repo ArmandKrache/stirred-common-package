@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' show MultipartFile;
 
 class DrinksListRequest {
   DrinksListRequest();

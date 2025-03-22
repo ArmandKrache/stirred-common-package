@@ -1,9 +1,11 @@
-import 'package:dio/dio.dart';
+// ignore: unused_import
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stirred_common_domain/src/config.dart';
-import 'package:stirred_common_domain/src/data/api_repository_impl.dart';
-import 'package:stirred_common_domain/src/domain/api_repository.dart';
+import 'package:stirred_common_domain/src/data/http_client.dart';
+import 'package:stirred_common_domain/src/domain/repositories/api_repository.dart';
 import 'package:stirred_common_domain/src/locator.dart';
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> storeAccessToken(String token) async {
   await storage.write(key: 'access_token', value: token);
@@ -28,12 +30,12 @@ Future<void> deleteTokens() async {
   await storage.delete(key: 'refresh_token');
 }
 
-Future<String?> refreshToken() async {
+Future<String?> refreshToken(ApiRepository apiRepository) async {
   String? token = await getRefreshToken();
   if (token == null) {
     return null;
   }
-  final refreshResponse = await locator<ApiRepository>().refreshToken(refreshToken: token);
+  final refreshResponse = await apiRepository.refreshToken(refreshToken: token);
   if (refreshResponse is DataSuccess) {
     await storeAccessToken(refreshResponse.data!.access);
     return await getAccessToken();
@@ -41,141 +43,42 @@ Future<String?> refreshToken() async {
   return null;
 }
 
-class TokenInterceptor extends Interceptor {
-  final Dio dio;
+class TokenInterceptor {
+  final HttpClient client;
+  final ApiRepository apiRepository;
   final Map<Uri, bool> isRefreshing = {};
 
-  TokenInterceptor() : dio = Dio();
+  TokenInterceptor(this.client, this.apiRepository);
 
-
-  @override
-  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  Future<void> onRequest() async {
     final token = await getAccessToken();
     if (token != null) {
-      options.headers['Authorization'] = 'JWT $token';
+      client.setHeader('Authorization', 'JWT $token');
     }
-    super.onRequest(options, handler);
   }
 
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    super.onResponse(response, handler);
-  }
-
-  @override
-  Future onError(
-      DioException err,
-      ErrorInterceptorHandler handler,
-      ) async {
-    if (err.response?.statusCode == 401) {
-      final originalRequest = err.requestOptions;
-      final uri = originalRequest.uri;
-
-      logger.d(isRefreshing[uri]);
-
+  Future<bool> onError(Uri uri, int statusCode) async {
+    if (statusCode == 401) {
       // Ensure that the refresh for this URI is not already in progress
       if (isRefreshing[uri] == null) {
         isRefreshing[uri] = true;
-        final refreshedAccessToken = await refreshToken();
-
-        // Mark the refresh as completed
+        final refreshedAccessToken = await refreshToken(apiRepository);
         isRefreshing[uri] = false;
 
         if (refreshedAccessToken != null) {
-          // Retry the original request with the new token
-          originalRequest.headers['Authorization'] = 'JWT $refreshedAccessToken';
-
-          try {
-            final response = await dio.fetch(originalRequest);
-            handler.resolve(response);
-            isRefreshing.remove(uri);
-            return;
-          } catch (e) {
-            /// Handle any errors during the retry, if needed
-          }
+          client.setHeader('Authorization', 'JWT $refreshedAccessToken');
+          isRefreshing.remove(uri);
+          return true; // Retry the request
         }
       }
     }
-    super.onError(err, handler);
+    return false; // Don't retry the request
   }
 }
 
-/*class TokenInterceptor extends Interceptor {
-  final int maxRetries;
-
-  TokenInterceptor({this.maxRetries = 3});
-
-
-  @override
-  Future onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
-    final token = await getAccessToken();
-    options.headers['Authorization'] = 'JWT $token';
-    super.onRequest(options, handler);
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) => super.onResponse(response, handler);
-
-  /*
-  @override
-  Future onError(
-      DioException err,
-      ErrorInterceptorHandler handler,
-      ) async {
-    Dio dio = Dio();
-    if (err.response?.statusCode == 401) {
-      try {
-        final refreshedAccessToken = await refreshToken();
-        if (refreshedAccessToken != null) {
-          // Retry the original request with the new token
-          final newOptions = err.requestOptions
-            ..headers['Authorization'] = 'JWT $refreshedAccessToken';
-          final response = await dio.fetch(newOptions);
-          logger.d("on Error : ");
-          logger.d(response);
-          handler.resolve(response);
-        } else {
-          handler.reject(err);
-        }
-      } catch (e) {
-        handler.reject(err);
-      }
-    } else {
-      super.onError(err, handler);
-    }
-  }*/
-
-  @override
-  Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    Dio dio = Dio();
-    if (err.response?.statusCode == 401) {
-      int retryCount = 0;
-      while (retryCount < maxRetries) {
-        try {
-          final refreshedToken = await refreshToken(); // Implement your token refresh logic
-          if (refreshedToken != null) {
-            // Retry the original request with the new token
-            final newOptions = err.requestOptions
-              ..headers['Authorization'] = 'JWT $refreshedToken';
-            final response = await dio.fetch(newOptions);
-            handler.resolve(response);
-            return;
-          } else {
-            handler.reject(err);
-            return;
-          }
-        } catch (e) {
-          retryCount++;
-          if (retryCount >= maxRetries) {
-            handler.reject(err);
-          }
-        }
-      }
-    } else {
-      super.onError(err, handler);
-    }
-  }
-}*/
+final tokenInterceptorProvider = Provider.family<TokenInterceptor, HttpClient>((ref, client) {
+  return TokenInterceptor(
+    client,
+    ref.watch(apiRepositoryProvider),
+  );
+});

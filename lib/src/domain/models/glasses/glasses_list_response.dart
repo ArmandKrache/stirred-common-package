@@ -14,7 +14,7 @@ class GlassesListResponse extends Equatable {
   factory GlassesListResponse.fromMap(Map<String, dynamic> map) {
     return GlassesListResponse(
       glasses: List<Glass>.from((map['results'] ?? []).map<dynamic>((element) {
-        return Glass.fromMap(element);
+        return Glass.fromJson(element);
       })),
     );
   }

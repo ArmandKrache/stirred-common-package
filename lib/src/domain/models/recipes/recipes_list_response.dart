@@ -1,7 +1,5 @@
 
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe.dart';
-import 'package:stirred_common_domain/src/domain/models/categories.dart';
-import 'package:stirred_common_domain/src/domain/models/ingredients/ingredient.dart';
 import 'package:equatable/equatable.dart';
 
 class RecipesListResponse extends Equatable {
@@ -16,7 +14,7 @@ class RecipesListResponse extends Equatable {
   factory RecipesListResponse.fromMap(Map<String, dynamic> map) {
     return RecipesListResponse(
       recipes: List<Recipe>.from((map['results'] ?? []).map<dynamic>((element) {
-        return Recipe.fromMap(element);
+        return Recipe.fromJson(element);
       })),
     );
   }

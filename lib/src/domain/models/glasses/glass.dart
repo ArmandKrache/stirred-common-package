@@ -1,41 +1,16 @@
-import 'package:stirred_common_domain/src/domain/models/generic_data_model.dart';
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Glass extends Equatable implements GenericDataModel {
-  final String id;
-  final String name;
-  final String description;
-  final String picture;
+part 'glass.freezed.dart';
+part 'glass.g.dart';
 
-  const Glass({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.picture,
-  });
+@freezed
+class Glass with _$Glass {
+  const factory Glass({
+    required String id,
+    required String name,
+    required String description,
+    required String picture,
+  }) = _Glass;
 
-  factory Glass.fromMap(Map<String, dynamic> map) {
-    return Glass(
-      id: map['id'] ?? "",
-      name : map['name'] ?? "",
-      description: map['description'] ?? "",
-      picture: map['picture'] ?? "",
-    );
-  }
-
-  factory Glass.empty() {
-    return const Glass(
-      id: "",
-      name : "",
-      description: "",
-      picture: "",
-    );
-  }
-
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [id, name, description];
-
+  factory Glass.fromJson(Map<String, dynamic> json) => _$GlassFromJson(json);
 }

@@ -14,7 +14,7 @@ class ProfilePatchResponse extends Equatable {
   factory ProfilePatchResponse.fromMap(Map<String, dynamic> map) {
     logger.d(map);
     return ProfilePatchResponse(
-        profile: Profile.fromMap(map)
+        profile: Profile.fromJson(map)
     );
   }
 

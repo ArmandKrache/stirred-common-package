@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:stirred_common_domain/src/domain/models/preferences.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:equatable/equatable.dart';
@@ -14,7 +16,7 @@ class ProfileListResponse extends Equatable {
   factory ProfileListResponse.fromMap(Map<String, dynamic> map) {
     return ProfileListResponse(
       profiles: List<Profile>.from((map['results'] ?? []).map<dynamic>((element) {
-        return Profile.fromMap(element);
+        return Profile.fromJson(element);
       })),
     );
   }

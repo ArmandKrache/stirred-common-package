@@ -1,5 +1,4 @@
 
-import 'package:stirred_common_domain/src/domain/models/categories.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe.dart';
 import 'package:equatable/equatable.dart';
 
@@ -14,7 +13,7 @@ class RecipeCreateResponse extends Equatable {
 
   factory RecipeCreateResponse.fromMap(Map<String, dynamic> map) {
     return RecipeCreateResponse(
-      recipe: Recipe.fromMap(map)
+      recipe: Recipe.fromJson(map)
     );
   }
 

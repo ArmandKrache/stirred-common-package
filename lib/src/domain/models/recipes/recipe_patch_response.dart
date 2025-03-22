@@ -14,7 +14,7 @@ class RecipePatchResponse extends Equatable {
   factory RecipePatchResponse.fromMap(Map<String, dynamic> map) {
     logger.d(map);
     return RecipePatchResponse(
-        recipe: Recipe.fromMap(map)
+        recipe: Recipe.fromJson(map)
     );
   }
 

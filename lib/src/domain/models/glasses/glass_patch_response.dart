@@ -12,7 +12,7 @@ class GlassPatchResponse extends Equatable {
 
   factory GlassPatchResponse.fromMap(Map<String, dynamic> map) {
     return GlassPatchResponse(
-        glass: Glass.fromMap(map)
+        glass: Glass.fromJson(map)
     );
   }
 
