@@ -8,7 +8,7 @@ class Debouncer {
 
   Debouncer({required this.milliseconds});
 
-  void debounce(VoidCallback callback) {
+  Future<void> debounce(VoidCallback callback) async {
     action = callback;
     _timer?.cancel();
     _timer = Timer(Duration(milliseconds: milliseconds), () {

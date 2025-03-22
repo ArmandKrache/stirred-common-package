@@ -88,6 +88,7 @@ class TokenInterceptor extends Interceptor {
           try {
             final response = await dio.fetch(originalRequest);
             handler.resolve(response);
+            isRefreshing.remove(uri);
             return;
           } catch (e) {
             /// Handle any errors during the retry, if needed
