@@ -20,7 +20,7 @@ import 'package:stirred_common_domain/src/domain/models/rating/rating_patch_resp
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_create_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipes_list_response.dart';
-import 'package:stirred_common_domain/src/data/network/http_client.dart';
+import 'package:stirred_common_domain/src/data/http_client.dart';
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 
 class StirredApiService {
