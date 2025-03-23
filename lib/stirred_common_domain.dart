@@ -52,7 +52,7 @@ export "src/domain/request_models/ratings_requests.dart";
 
 export "src/utils/resources/data_state.dart";
 export "src/utils/resources/debouncer.dart";
-export "src/utils/resources/tokens_management.dart";
+export "src/utils/resources/token_manager.dart";
 export "src/utils/resources/utils_functions.dart";
 
 

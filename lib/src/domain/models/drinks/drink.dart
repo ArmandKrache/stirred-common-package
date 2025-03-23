@@ -1,6 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:stirred_common_domain/src/domain/models/categories/categories.dart';
+import 'package:stirred_common_domain/src/domain/models/glasses/glass.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:stirred_common_domain/src/domain/models/rating/rating.dart';
+import 'package:stirred_common_domain/src/domain/models/recipes/recipe.dart';
 
 part 'drink.freezed.dart';
 part 'drink.g.dart';
@@ -12,9 +15,9 @@ class Drink with _$Drink {
     required String name,
     required String description,
     required String picture,
-    required String recipe,
-    required String author,
-    required String glass,
+    required Recipe recipe,
+    required Profile author,
+    required Glass glass,
     required Categories categories,
     @JsonKey(name: 'average_rating') @Default(0.0) double averageRating,
     @Default([]) List<Rating> ratings,
