@@ -1,12 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stirred_common_domain/src/data/http_error_client.dart';
 import 'package:stirred_common_domain/src/domain/response_models/signup_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/login_response.dart';
-import 'package:stirred_common_domain/src/data/http_client.dart';
-import 'package:stirred_common_domain/src/providers.dart';
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 
 class AdminApiService {
-  final HttpClient _client;
+  final HttpErrorClient _client;
 
   AdminApiService(this._client);
 
@@ -48,7 +46,3 @@ class AdminApiService {
     );
   }
 }
-
-final adminApiServiceProvider = Provider<AdminApiService>((ref) {
-  return AdminApiService(ref.watch(adminHttpClientProvider));
-});

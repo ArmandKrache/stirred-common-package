@@ -1,5 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' show MultipartFile;
+import 'package:stirred_common_domain/src/data/http_error_client.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/all_choices_response.dart';
@@ -20,11 +20,10 @@ import 'package:stirred_common_domain/src/domain/response_models/rating_patch_re
 import 'package:stirred_common_domain/src/domain/response_models/recipe_create_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/recipe_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/recipes_list_response.dart';
-import 'package:stirred_common_domain/src/data/http_client.dart';
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 
 class StirredApiService {
-  final HttpClient _client;
+  final HttpErrorClient _client;
 
   StirredApiService(this._client);
 
@@ -392,8 +391,3 @@ class StirredApiService {
     );
   }
 }
-
-final stirredApiServiceProvider = Provider<StirredApiService>((ref) {
-  final client = ref.watch(httpClientProvider);
-  return StirredApiService(client);
-});
