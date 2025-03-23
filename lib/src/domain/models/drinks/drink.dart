@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stirred_common_domain/src/domain/models/categories.dart';
+import 'package:stirred_common_domain/src/domain/models/categories/categories.dart';
 import 'package:stirred_common_domain/src/domain/models/rating/rating.dart';
 
 part 'drink.freezed.dart';

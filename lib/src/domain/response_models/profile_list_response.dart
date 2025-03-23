@@ -1,6 +1,6 @@
 // ignore_for_file: unused_import
 
-import 'package:stirred_common_domain/src/domain/models/preferences.dart';
+import 'package:stirred_common_domain/src/domain/models/preferences/preferences.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:equatable/equatable.dart';
 

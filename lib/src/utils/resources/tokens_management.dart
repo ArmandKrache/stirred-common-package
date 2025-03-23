@@ -3,7 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stirred_common_domain/src/config.dart';
 import 'package:stirred_common_domain/src/data/http_client.dart';
 import 'package:stirred_common_domain/src/domain/repositories/api_repository.dart';
-import 'package:stirred_common_domain/src/locator.dart';
+import 'package:stirred_common_domain/src/providers.dart';
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

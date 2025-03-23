@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stirred_common_domain/src/domain/models/auth/signup_response.dart';
-import 'package:stirred_common_domain/src/domain/models/login_response.dart';
+import 'package:stirred_common_domain/src/domain/response_models/signup_response.dart';
+import 'package:stirred_common_domain/src/domain/response_models/login_response.dart';
 import 'package:stirred_common_domain/src/data/http_client.dart';
-import 'package:stirred_common_domain/src/locator.dart';
+import 'package:stirred_common_domain/src/providers.dart';
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 
 class AdminApiService {

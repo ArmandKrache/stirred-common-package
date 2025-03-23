@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:stirred_common_domain/src/domain/models/preferences.dart';
+import 'package:stirred_common_domain/src/domain/models/preferences/preferences.dart';
 
 part 'profile.freezed.dart';
 part 'profile.g.dart';
