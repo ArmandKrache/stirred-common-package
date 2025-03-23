@@ -1,72 +1,59 @@
 import 'package:http/http.dart';
-import 'package:stirred_common_domain/src/domain/repositories/api_repository.dart';
-import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
-import 'package:stirred_common_domain/src/utils/resources/tokens_management.dart';
+import 'package:stirred_common_domain/src/utils/resources/token_manager.dart';
 
-class ErrorResponse {
+class ErrorInterceptorResponse {
+  final int statusCode;
+  final bool isSuccess;
   final bool shouldRetry;
-  final String? errorMessage;
+  final String message;
 
-  const ErrorResponse({
-    required this.shouldRetry,
-    this.errorMessage,
+  ErrorInterceptorResponse({
+    required this.statusCode,
+    this.isSuccess = false,
+    this.shouldRetry = false,
+    this.message = '',
   });
 }
 
 class ErrorInterceptor {
-  ApiRepository? _repository;
+  final TokenManager _tokenManager;
 
-  ErrorInterceptor([ApiRepository? repository]) : _repository = repository;
+  ErrorInterceptor(this._tokenManager);
 
-  void updateRepository(ApiRepository repository) {
-    _repository = repository;
-  }
-
-  Future<ErrorResponse> onError(Uri uri, Response response) async {
+  Future<ErrorInterceptorResponse> onResponse(Uri uri, Response response) async {
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      return const ErrorResponse(shouldRetry: false);
+      return ErrorInterceptorResponse(isSuccess: true, statusCode: response.statusCode);
     }
 
     switch (response.statusCode) {
       case 401:
-        if (_repository == null) {
-          return const ErrorResponse(
-            shouldRetry: false,
-            errorMessage: 'Authentication required',
-          );
+        final refreshed = await _tokenManager.refreshTokens();
+        if (refreshed) {
+          return ErrorInterceptorResponse(shouldRetry: true, statusCode: response.statusCode);
         }
         
-        final refreshResult = await _repository!.refreshToken(
-          refreshToken: await readRefreshToken() ?? '',
-        );
-        
-        if (refreshResult is DataSuccess && refreshResult.data != null) {
-          await saveAccessToken(refreshResult.data!.access);
-          return const ErrorResponse(shouldRetry: true);
-        }
-        
-        return const ErrorResponse(
-          shouldRetry: false,
-          errorMessage: 'Session expired. Please log in again.',
+        return ErrorInterceptorResponse(
+          message: 'Session expired. Please log in again.',
+          statusCode: response.statusCode,
         );
 
       case 429:
-        return const ErrorResponse(
-          shouldRetry: false,
-          errorMessage: 'Too many requests. Please try again later.',
+        return ErrorInterceptorResponse(
+          message: 'Too many requests. Please try again later.',
+          statusCode: response.statusCode,
         );
 
       default:
         if (response.statusCode >= 500) {
-          return const ErrorResponse(
-            shouldRetry: false,
-            errorMessage: 'Server error. Please try again later.',
+          return ErrorInterceptorResponse(
+            message: 'Server error. Please try again later.',
+            statusCode: response.statusCode,
           );
         }
         
-        return const ErrorResponse(
-          shouldRetry: false,
-          errorMessage: 'Request failed',
+        return ErrorInterceptorResponse(
+          message: 'Request failed',
+          statusCode: response.statusCode,
         );
     }
   }

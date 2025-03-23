@@ -1,7 +1,7 @@
 library;
 
 export "src/config.dart" show logger, storage, baseMediaUrl, baseStirredApiUrl, baseStirredAdminUrl, localUrl, baseUrl;
-export "src/providers.dart";
+export "src/providers/providers.dart";
 
 export "src/data/repositories/api_repository_impl.dart";
 export "src/data/apis/admin_api_service.dart";

@@ -18,15 +18,15 @@ class HttpErrorClient {
     http.Response response,
     T Function(Map<String, dynamic>)? fromJson,
   ) async {
-    final errorResponse = await errorInterceptor.onError(uri, response);
-    if (errorResponse.shouldRetry) {
+    final interceptorResponse = await errorInterceptor.onResponse(uri, response);
+    if (interceptorResponse.shouldRetry) {
       // Retry the request with updated token
       final retryResponse = await client.get(uri.path);
       return _handleResponse(uri, retryResponse, fromJson);
     }
 
-    if (errorResponse.errorMessage != null) {
-      return DataFailed(Exception(errorResponse.errorMessage));
+    if (!interceptorResponse.isSuccess) {
+      return DataFailed(Exception(interceptorResponse.message));
     }
 
     if (response.body.isEmpty) {

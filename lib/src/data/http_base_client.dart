@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:stirred_common_domain/src/utils/resources/tokens_management.dart';
+import 'package:stirred_common_domain/src/utils/resources/token_manager.dart';
 
 class HttpBaseClient {
   final String baseUrl;
   final http.Client _client;
+  final TokenManager _tokenManager;
 
-  HttpBaseClient({required this.baseUrl}) : _client = http.Client();
+  HttpBaseClient({
+    required this.baseUrl,
+    required TokenManager tokenManager,
+  }) : _client = http.Client(),
+       _tokenManager = tokenManager;
 
   Future<Map<String, String>> _prepareHeaders({
     Map<String, String> headers = const {},
@@ -18,9 +23,9 @@ class HttpBaseClient {
       result['Content-Type'] = 'application/json';
     }
     
-    final token = await readAccessToken();
-    if (token != null) {
-      result['Authorization'] = 'JWT $token';
+    final authHeader = await _tokenManager.getAuthorizationHeader();
+    if (authHeader != null) {
+      result['Authorization'] = authHeader;
     }
     
     return result;
