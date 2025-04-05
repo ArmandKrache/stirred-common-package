@@ -1,13 +1,12 @@
 library;
 
 export "src/config.dart" show logger, storage, baseMediaUrl, baseStirredApiUrl, baseStirredAdminUrl, localUrl, baseUrl;
-export "src/providers/providers.dart";
 
-export "src/data/repositories/api_repository_impl.dart";
 export "src/data/apis/admin_api_service.dart";
 export "src/data/apis/stirred_api_service.dart";
 
 export "src/domain/repositories/api_repository.dart";
+export "src/domain/providers.dart";
 
 export "src/domain/response_models/signup_response.dart";
 export "src/domain/request_models/signup_requests.dart";
@@ -23,6 +22,7 @@ export "src/domain/response_models/glasses_create_response.dart";
 export "src/domain/response_models/glasses_delete_response.dart";
 export "src/domain/request_models/glasses_requests.dart";
 export "src/domain/models/ingredients/ingredient.dart";
+export "src/domain/models/ingredients/ingredient_match.dart";
 export "src/domain/response_models/ingredients_delete_response.dart";
 export "src/domain/request_models/ingredients_requests.dart";
 export "src/domain/response_models/ingredients_create_response.dart";
@@ -38,6 +38,7 @@ export "src/domain/response_models/recipe_create_response.dart";
 export "src/domain/response_models/recipe_patch_response.dart";
 export "src/domain/response_models/recipes_list_response.dart";
 export "src/domain/request_models/recipes_requests.dart";
+export "src/domain/models/recipes/recipe_ingredient.dart";
 export "src/domain/response_models/all_choices_response.dart";
 export "src/domain/models/categories/categories.dart";
 export "src/domain/models/generic_data_model.dart";

@@ -4,11 +4,11 @@ import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 import 'package:stirred_common_domain/src/utils/interceptors/error_interceptor.dart';
 import 'package:stirred_common_domain/src/data/http_base_client.dart';
 
-class HttpErrorClient {
+class HttpRestClient {
   final HttpBaseClient client;
   final ErrorInterceptor errorInterceptor;
 
-  HttpErrorClient({
+  HttpRestClient({
     required this.client,
     required this.errorInterceptor,
   });

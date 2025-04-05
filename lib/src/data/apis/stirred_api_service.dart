@@ -23,7 +23,7 @@ import 'package:stirred_common_domain/src/domain/response_models/recipes_list_re
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 
 class StirredApiService {
-  final HttpErrorClient _client;
+  final HttpRestClient _client;
 
   StirredApiService(this._client);
 

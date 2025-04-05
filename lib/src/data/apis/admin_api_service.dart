@@ -4,7 +4,7 @@ import 'package:stirred_common_domain/src/domain/response_models/login_response.
 import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
 
 class AdminApiService {
-  final HttpErrorClient _client;
+  final HttpRestClient _client;
 
   AdminApiService(this._client);
 
@@ -16,7 +16,7 @@ class AdminApiService {
     );
   }
 
-  Future<DataState<LoginResponse>> getTokens(Map<String, dynamic> credentials) {
+  Future<DataState<LoginResponse>> login(Map<String, dynamic> credentials) {
     return _client.post<LoginResponse>(
       '/auth/token/login/',
       body: credentials,
