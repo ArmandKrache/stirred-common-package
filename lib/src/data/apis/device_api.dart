@@ -1,4 +1,4 @@
-import 'package:stirred_common_domain/src/data/http_error_client.dart';
+import 'package:stirred_common_domain/src/data/http/error_handling_client.dart';
 
 /// A data source allowing to send methods through a [HttpRestClient], mostly
 /// related to devices.
@@ -10,7 +10,7 @@ class DeviceApi {
   });
 
   /// The [HttpRestClient] used to send the HTTP requests.
-  final HttpRestClient httpRestClient;
+  final ErrorHandlingClient httpRestClient;
 
   final String loginEndpoint = '/auth/token/login/';
 

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stirred_common_domain/stirred_common_domain.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 
 /// An interface providing [FlutterSecureStorage] methods.
 ///

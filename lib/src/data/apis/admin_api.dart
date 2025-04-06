@@ -1,14 +1,15 @@
-import 'package:stirred_common_domain/src/data/http_error_client.dart';
+import 'package:stirred_common_domain/src/data/http/error_handling_client.dart';
 import 'package:stirred_common_domain/src/domain/response_models/signup_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/login_response.dart';
-import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
+import 'package:stirred_common_domain/src/utils/resources/result.dart';
+import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
 
-class AdminApiService {
-  final HttpRestClient _client;
+class AuthApi {
+  final ErrorHandlingClient _client;
 
-  AdminApiService(this._client);
+  AuthApi(this._client);
 
-  Future<DataState<SignupResponse>> signup(Map<String, String> body) {
+  Future<Result<SignupResponse, StirError>> signup(Map<String, String> body) {
     return _client.post<SignupResponse>(
       '/auth/signup/',
       body: body,
@@ -16,7 +17,7 @@ class AdminApiService {
     );
   }
 
-  Future<DataState<LoginResponse>> login(Map<String, dynamic> credentials) {
+  Future<Result<LoginResponse, StirError>> login(Map<String, dynamic> credentials) {
     return _client.post<LoginResponse>(
       '/auth/token/login/',
       body: credentials,
@@ -24,14 +25,14 @@ class AdminApiService {
     );
   }
 
-  Future<DataState<void>> verifyToken(Map<String, dynamic> token) {
+  Future<Result<void, StirError>> verifyToken(Map<String, dynamic> token) {
     return _client.post<void>(
       '/auth/token/verify/',
       body: token,
     );
   }
 
-  Future<DataState<LoginResponse>> refreshToken(Map<String, dynamic> token) {
+  Future<Result<LoginResponse, StirError>> refreshToken(Map<String, dynamic> token) {
     return _client.post<LoginResponse>(
       '/auth/token/refresh/',
       body: token,
@@ -39,7 +40,7 @@ class AdminApiService {
     );
   }
 
-  Future<DataState<dynamic>> checkUsernameValidity(Map<String, dynamic> body) {
+  Future<Result<dynamic, StirError>> checkUsernameValidity(Map<String, dynamic> body) {
     return _client.post(
       '/auth/check-username/',
       body: body,

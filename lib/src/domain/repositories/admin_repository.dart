@@ -1,18 +1,22 @@
 import 'dart:async';
 
+import 'package:stirred_common_domain/src/data/apis/admin_api.dart';
 import 'package:stirred_common_domain/src/data/cache/secure_storage/secure_storage.dart';
 import 'package:stirred_common_domain/src/data/cache/secure_storage/shared_preferences.dart';
-import 'package:stirred_common_domain/stirred_common_domain.dart';
+import 'package:stirred_common_domain/src/domain/response_models/login_response.dart';
+import 'package:stirred_common_domain/src/domain/response_models/signup_response.dart';
+import 'package:stirred_common_domain/src/utils/resources/result.dart';
+import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
 
 /// A repository allowing to perform various operations related to devices.
 class AdminRepository {
   AdminRepository({
-    required this.adminApiService,
+    required this.authApi,
     required this.sharedPreferencesStorage,
   });
 
-  /// The [AdminApiService] API data source.
-  final AdminApiService adminApiService;
+  /// The [AuthApi] API data source.
+  final AuthApi authApi;
 
   /// The [SecureStorage] encrypted cache data source.
   final SharedPreferencesStorage sharedPreferencesStorage;
@@ -34,23 +38,23 @@ class AdminRepository {
 
   /// Admin API implementation.
 
-  Future<DataState<SignupResponse>> signup(Map<String, String> body) {
-    return adminApiService.signup(body);
+  Future<Result<SignupResponse, StirError>> signup(Map<String, String> body) {
+    return authApi.signup(body);
   }
 
-  Future<DataState<LoginResponse>> login(Map<String, dynamic> credentials) {
-    return adminApiService.login(credentials);
+  Future<Result<LoginResponse, StirError>> login(Map<String, dynamic> credentials) {
+    return authApi.login(credentials);
   }
 
-  Future<DataState<void>> verifyToken(Map<String, dynamic> token) {
-    return adminApiService.verifyToken(token);
+  Future<Result<void, StirError>> verifyToken(Map<String, dynamic> token) {
+    return authApi.verifyToken(token);
   }
 
-  Future<DataState<LoginResponse>> refreshToken(Map<String, dynamic> token) {
-    return adminApiService.refreshToken(token);
+  Future<Result<LoginResponse, StirError>> refreshToken(Map<String, dynamic> token) {
+    return authApi.refreshToken(token);
   }
 
-  Future<DataState<dynamic>> checkUsernameValidity(Map<String, dynamic> body) {
-    return adminApiService.checkUsernameValidity(body);
+  Future<Result<dynamic, StirError>> checkUsernameValidity(Map<String, dynamic> body) {
+    return authApi.checkUsernameValidity(body);
   }
 }

@@ -2,10 +2,6 @@ library;
 
 export "src/config.dart" show logger, storage, baseMediaUrl, baseStirredApiUrl, baseStirredAdminUrl, localUrl, baseUrl;
 
-export "src/data/apis/admin_api_service.dart";
-export "src/data/apis/stirred_api_service.dart";
-
-export "src/domain/repositories/api_repository.dart";
 export "src/domain/providers.dart";
 
 export "src/domain/response_models/signup_response.dart";
@@ -51,10 +47,11 @@ export "src/domain/response_models/rating_create_response.dart";
 export "src/domain/response_models/rating_patch_response.dart";
 export "src/domain/request_models/ratings_requests.dart";
 
-export "src/utils/resources/data_state.dart";
 export "src/utils/resources/debouncer.dart";
 export "src/utils/resources/token_manager.dart";
 export "src/utils/resources/utils_functions.dart";
+export "src/utils/resources/result.dart";
+export "src/utils/resources/stir_error.dart";
 
 
 

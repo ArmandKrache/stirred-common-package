@@ -1,31 +1,32 @@
 import 'package:http/http.dart' show MultipartFile;
-import 'package:stirred_common_domain/src/data/http_error_client.dart';
+import 'package:stirred_common_domain/src/data/http/error_handling_client.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:stirred_common_domain/src/domain/response_models/profile_create_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/profile_list_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/profile_patch_response.dart';
-import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
+import 'package:stirred_common_domain/src/utils/resources/result.dart';
+import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
 
 class ProfileApi {
-  final HttpRestClient _client;
+  final ErrorHandlingClient _client;
 
   ProfileApi(this._client);
 
-  Future<DataState<Profile>> getSelfProfile() {
+  Future<Result<Profile, StirError>> getSelfProfile() {
     return _client.get<Profile>(
       '/self/',
       fromJson: Profile.fromJson,
     );
   }
 
-  Future<DataState<ProfileListResponse>> getProfileList() {
+  Future<Result<ProfileListResponse, StirError>> getProfileList() {
     return _client.get<ProfileListResponse>(
       '/profiles/',
       fromJson: ProfileListResponse.fromMap,
     );
   }
 
-  Future<DataState<ProfileListResponse>> searchProfiles({String? query}) {
+  Future<Result<ProfileListResponse, StirError>> searchProfiles({String? query}) {
     return _client.get<ProfileListResponse>(
       '/profiles/search/',
       queryParameters: query != null ? {'query': query} : null,
@@ -33,7 +34,7 @@ class ProfileApi {
     );
   }
 
-  Future<DataState<ProfileCreateResponse>> createProfile({
+  Future<Result<ProfileCreateResponse, StirError>> createProfile({
     required String user,
     required String name,
     required String description,
@@ -59,14 +60,14 @@ class ProfileApi {
     );
   }
 
-  Future<DataState<Profile>> retrieveProfile(String id) {
+  Future<Result<Profile, StirError>> retrieveProfile(String id) {
     return _client.get<Profile>(
       '/profiles/$id/',
       fromJson: Profile.fromJson,
     );
   }
 
-  Future<DataState<ProfilePatchResponse>> patchProfile(
+  Future<Result<ProfilePatchResponse, StirError>> patchProfile(
     String id, {
     String? name,
     String? description,
@@ -79,7 +80,7 @@ class ProfileApi {
       if (dateOfBirth != null) 'date_of_birth': dateOfBirth,
     };
 
-    final files = picture != null ? {'picture': picture} : null;
+    final files = {if (picture != null) 'picture': picture};
 
     return _client.patchMultipart<ProfilePatchResponse>(
       '/profiles/$id/',
@@ -88,5 +89,5 @@ class ProfileApi {
       fromJson: ProfilePatchResponse.fromMap,
     );
   }
-  
+
 }

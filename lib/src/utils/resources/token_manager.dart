@@ -1,14 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stirred_common_domain/src/domain/repositories/api_repository.dart';
-import 'package:stirred_common_domain/src/utils/resources/data_state.dart';
-import 'package:stirred_common_domain/src/utils/resources/token_storage.dart';
+import 'package:stirred_common_domain/src/domain/repositories/admin_repository.dart';
 import 'package:stirred_common_domain/src/utils/resources/token_storage.dart';
 
 /// Manages authentication tokens and handles token refresh operations.
 /// 
 /// This class combines token storage with refresh logic, providing a clean interface
 /// for token management throughout the app.
-class TokenManager extends StateNotifier<ApiRepository?> {
+class TokenManager extends StateNotifier<AdminRepository?> {
   final TokenStorage _storage;
   
   /// Creates a new [TokenManager] instance.
@@ -19,7 +17,7 @@ class TokenManager extends StateNotifier<ApiRepository?> {
       super(null);
 
   /// Updates the repository used for token refresh operations.
-  void updateRepository(ApiRepository repository) {
+  void updateRepository(AdminRepository repository) {
     state = repository;
   }
 
@@ -49,12 +47,18 @@ class TokenManager extends StateNotifier<ApiRepository?> {
       return false;
     }
 
-    final result = await state!.refreshToken(refreshToken: refreshToken);
-    if (result is DataSuccess && result.data != null) {
-      return await _storage.storeAccessToken(result.data!.access);
-    }
+    final result = await state!.refreshToken({
+      'refresh': refreshToken,
+    });
 
-    return false;
+    return result.when(
+      success: (data) {
+        return _storage.storeAccessToken(data.access);
+      },
+      failure: (error) {
+        return false;
+      },
+    );
   }
 
   /// Stores both access and refresh tokens.

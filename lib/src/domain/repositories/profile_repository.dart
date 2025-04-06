@@ -1,6 +1,10 @@
 import 'package:http/http.dart';
 import 'package:stirred_common_domain/src/data/apis/profile_api.dart';
-import 'package:stirred_common_domain/stirred_common_domain.dart';
+import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
+import 'package:stirred_common_domain/src/domain/response_models/profile_create_response.dart';
+import 'package:stirred_common_domain/src/domain/response_models/profile_patch_response.dart';
+import 'package:stirred_common_domain/src/utils/resources/result.dart';
+import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
 
 class ProfileRepository {
   ProfileRepository({
@@ -9,16 +13,16 @@ class ProfileRepository {
 
   final ProfileApi profileApi;
 
-  Future<DataState<Profile>> getSelfProfile() async {
+  Future<Result<Profile, StirError>> getSelfProfile() async {
     /// TODO: Implement caching.
     return profileApi.getSelfProfile();
   }
 
-  Future<DataState<Profile>> getProfileById(String id) async {
+  Future<Result<Profile, StirError>> getProfileById(String id) async {
     return profileApi.retrieveProfile(id);
   }
 
-  Future<DataState<ProfileCreateResponse>> createProfile({
+  Future<Result<ProfileCreateResponse, StirError>> createProfile({
     required String user,
     required String name,
     required String description,
@@ -34,7 +38,7 @@ class ProfileRepository {
     );
   }
 
-  Future<DataState<ProfilePatchResponse>> updateProfile({
+  Future<Result<ProfilePatchResponse, StirError>> updateProfile({
     required String id,
     String? name,
     String? description,
