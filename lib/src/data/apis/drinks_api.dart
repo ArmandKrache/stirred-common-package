@@ -20,20 +20,21 @@ import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
 
 class DrinksApi {
   final ErrorHandlingClient _client;
+  final String urlPrefix;
 
-  DrinksApi(this._client);
+  DrinksApi(this._client, {this.urlPrefix = ''});
 
   /// Glasses
   Future<Result<GlassesListResponse, StirError>> getGlassesList() {
     return _client.get<GlassesListResponse>(
-      '/glasses/',
+      '$urlPrefix/glasses/',
       fromJson: GlassesListResponse.fromMap,
     );
   }
 
   Future<Result<GlassesListResponse, StirError>> searchGlasses({String? query}) {
     return _client.get<GlassesListResponse>(
-      '/glasses/search/',
+      '$urlPrefix/glasses/search/',
       queryParameters: query != null ? {'query': query} : null,
       fromJson: GlassesListResponse.fromMap,
     );
@@ -54,7 +55,7 @@ class DrinksApi {
     };
 
     return _client.postMultipart<GlassesCreateResponse>(
-      '/glasses/create/',
+      '$urlPrefix/glasses/create/',
       fields: fields,
       files: files,
       fromJson: GlassesCreateResponse.fromMap,
@@ -75,7 +76,7 @@ class DrinksApi {
     final files = {if (picture != null) 'picture': picture};
 
     return _client.patchMultipart<GlassPatchResponse>(
-      '/glasses/$id/',
+      '$urlPrefix/glasses/$id/',
       fields: fields,
       files: files,
       fromJson: GlassPatchResponse.fromMap,
@@ -83,21 +84,21 @@ class DrinksApi {
   }
 
   Future<Result<void, StirError>> deleteGlass(String id) {
-    return _client.delete('/glasses/$id/');
+    return _client.delete('$urlPrefix/glasses/$id/');
   }
 
   /// Ingredients
 
   Future<Result<IngredientsListResponse, StirError>> getIngredientsList() {
     return _client.get<IngredientsListResponse>(
-    	'/ingredients/',
-    	fromJson: IngredientsListResponse.fromMap,
+      '$urlPrefix/ingredients/',
+      fromJson: IngredientsListResponse.fromMap,
     );
   }
 
   Future<Result<IngredientsListResponse, StirError>> searchIngredients({String? query}) {
     return _client.get<IngredientsListResponse>(
-      '/ingredients/search/',
+      '$urlPrefix/ingredients/search/',
       queryParameters: query != null ? {'query': query} : null,
       fromJson: IngredientsListResponse.fromMap,
     );
@@ -122,7 +123,7 @@ class DrinksApi {
     };
 
     return _client.postMultipart<IngredientCreateResponse>(
-      '/ingredients/create/',
+      '$urlPrefix/ingredients/create/',
       fields: fields,
       files: files,
       fromJson: IngredientCreateResponse.fromMap,
@@ -147,7 +148,7 @@ class DrinksApi {
     final files = {if (picture != null) 'picture': picture};
 
     return _client.patchMultipart<IngredientPatchResponse>(
-      '/ingredients/$id/',
+      '$urlPrefix/ingredients/$id/',
       fields: fields,
       files: files,
       fromJson: IngredientPatchResponse.fromMap,
@@ -155,21 +156,21 @@ class DrinksApi {
   }
 
   Future<Result<void, StirError>> deleteIngredient(String id) {
-    return _client.delete('/ingredients/$id/');
+    return _client.delete('$urlPrefix/ingredients/$id/');
   }
 
   /// Recipes
 
   Future<Result<RecipesListResponse, StirError>> getRecipesList() {
     return _client.get<RecipesListResponse>(
-      '/recipes/',
+      '$urlPrefix/recipes/',
       fromJson: RecipesListResponse.fromMap,
     );
   }
 
   Future<Result<RecipesListResponse, StirError>> searchRecipes({String? query}) {
     return _client.get<RecipesListResponse>(
-      '/recipes/search/',
+      '$urlPrefix/recipes/search/',
       queryParameters: query != null ? {'query': query} : null,
       fromJson: RecipesListResponse.fromMap,
     );
@@ -177,7 +178,7 @@ class DrinksApi {
 
   Future<Result<RecipeCreateResponse, StirError>> createRecipe(Map<String, dynamic> body) {
     return _client.post<RecipeCreateResponse>(
-      '/recipes/create/',
+      '$urlPrefix/recipes/create/',
       body: body,
       fromJson: RecipeCreateResponse.fromMap,
     );
@@ -185,28 +186,28 @@ class DrinksApi {
 
   Future<Result<RecipePatchResponse, StirError>> patchRecipe(String id, Map<String, dynamic> body) {
     return _client.patch<RecipePatchResponse>(
-      '/recipes/$id/',
+      '$urlPrefix/recipes/$id/',
       body: body,
       fromJson: RecipePatchResponse.fromMap,
     );
   }
 
   Future<Result<void, StirError>> deleteRecipe(String id) {
-    return _client.delete('/recipes/$id/');
+    return _client.delete('$urlPrefix/recipes/$id/');
   }
 
   /// Drinks
 
   Future<Result<DrinksListResponse, StirError>> getDrinksList() {
     return _client.get<DrinksListResponse>(
-      '/drinks/',
+      '$urlPrefix/drinks/',
       fromJson: DrinksListResponse.fromMap,
     );
   }
 
   Future<Result<DrinksListResponse, StirError>> searchDrinks({String? query}) {
     return _client.get<DrinksListResponse>(
-      '/drinks/search/',
+      '$urlPrefix/drinks/search/',
       queryParameters: query != null ? {'query': query} : null,
       fromJson: DrinksListResponse.fromMap,
     );
@@ -235,7 +236,7 @@ class DrinksApi {
     };
 
     return _client.postMultipart<DrinkCreateResponse>(
-      '/drinks/create/',
+      '$urlPrefix/drinks/create/',
       fields: fields,
       files: files,
       fromJson: DrinkCreateResponse.fromMap,
@@ -244,7 +245,7 @@ class DrinksApi {
 
   Future<Result<Drink, StirError>> retrieveDrink(String id) {
     return _client.get<Drink>(
-      '/drinks/$id/',
+      '$urlPrefix/drinks/$id/',
       fromJson: Drink.fromJson,
     );
   }
@@ -271,7 +272,7 @@ class DrinksApi {
     final files = {if (picture != null) 'picture': picture};
 
     return _client.patchMultipart<DrinkPatchResponse>(
-      '/drinks/$id/',
+      '$urlPrefix/drinks/$id/',
       fields: fields,
       files: files,
       fromJson: DrinkPatchResponse.fromMap,
@@ -279,14 +280,14 @@ class DrinksApi {
   }
 
   Future<Result<void, StirError>> deleteDrink(String id) {
-    return _client.delete('/drinks/$id/');
+    return _client.delete('$urlPrefix/drinks/$id/');
   }
 
   /// Ratings
 
   Future<Result<RatingCreateResponse, StirError>> createRating(Map<String, dynamic> body) {
     return _client.post<RatingCreateResponse>(
-      '/ratings/create/',
+      '$urlPrefix/ratings/create/',
       body: body,
       fromJson: RatingCreateResponse.fromMap,
     );
@@ -294,21 +295,21 @@ class DrinksApi {
 
   Future<Result<RatingPatchResponse, StirError>> patchRating(String id, Map<String, dynamic> body) {
     return _client.patch<RatingPatchResponse>(
-      '/ratings/$id/',
+      '$urlPrefix/ratings/$id/',
       body: body,
       fromJson: RatingPatchResponse.fromMap,
     );
   }
 
   Future<Result<void, StirError>> deleteRating(String id) {
-    return _client.delete('/ratings/$id/');
+    return _client.delete('$urlPrefix/ratings/$id/');
   }
 
   /// Favorites
 
   Future<Result<dynamic, StirError>> favoriteAction(Map<String, dynamic> body) {
     return _client.post(
-      '/self/favorites/',
+      '$urlPrefix/self/favorites/',
       body: body,
     );
   }

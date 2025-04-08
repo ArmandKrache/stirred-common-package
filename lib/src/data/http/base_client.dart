@@ -24,9 +24,9 @@ class BaseClient {
     
     result['Content-Type'] = isJson ? 'application/json' : 'multipart/form-data';
     
-    final authHeader = await _tokenManager.getAuthorizationHeader();
-    if (authHeader != null) {
-      result['Authorization'] = authHeader;
+    final token = await _tokenManager.getAuthorizationHeader();
+    if (token != null) {
+      result['Authorization'] = token;
     }
     
     return result;

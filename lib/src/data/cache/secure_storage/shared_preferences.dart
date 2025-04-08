@@ -89,7 +89,8 @@ class SharedPreferencesStorage<T> {
 }
 
 enum PreferencesKeys {
-  authToken(value: 'auth_token');
+  accessToken(value: 'access_token'),
+  refreshToken(value: 'refresh_token');
 
   const PreferencesKeys({required this.value});
 

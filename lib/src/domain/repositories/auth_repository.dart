@@ -9,8 +9,8 @@ import 'package:stirred_common_domain/src/utils/resources/result.dart';
 import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
 
 /// A repository allowing to perform various operations related to devices.
-class AdminRepository {
-  AdminRepository({
+class AuthRepository {
+  AuthRepository({
     required this.authApi,
     required this.sharedPreferencesStorage,
   });
@@ -22,18 +22,33 @@ class AdminRepository {
   final SharedPreferencesStorage sharedPreferencesStorage;
 
   /// Fetch the auth token from the cache.
-  Future<String?> readAuthToken() async {
-    return sharedPreferencesStorage.read<String>(PreferencesKeys.authToken.value);
+  Future<String?> readAccessToken() async {
+    return sharedPreferencesStorage.read<String>(PreferencesKeys.accessToken.value);
   }
 
   /// Save the auth token in the cache.
-  Future<bool> saveAuthToken(String authToken) async {
-    return sharedPreferencesStorage.save<String>(PreferencesKeys.authToken.value, authToken);
+  Future<bool> saveAccessToken(String accessToken) async {
+    return sharedPreferencesStorage.save<String>(PreferencesKeys.accessToken.value, accessToken);
   }
 
   /// Remove the auth token from the cache.
-  Future<bool> removeAuthToken() async {
-    return sharedPreferencesStorage.remove(PreferencesKeys.authToken.value);
+  Future<bool> removeAccessToken() async {
+    return sharedPreferencesStorage.remove(PreferencesKeys.accessToken.value);
+  }
+
+  /// Save the refresh token in the cache.
+  Future<bool> saveRefreshToken(String refreshToken) async {
+    return sharedPreferencesStorage.save<String>(PreferencesKeys.refreshToken.value, refreshToken);
+  }
+
+  /// Remove the refresh token from the cache.
+  Future<bool> removeRefreshToken() async {
+    return sharedPreferencesStorage.remove(PreferencesKeys.refreshToken.value);
+  }
+
+  /// Fetch the refresh token from the cache.
+  Future<String?> readRefreshToken() async {
+    return sharedPreferencesStorage.read<String>(PreferencesKeys.refreshToken.value);
   }
 
   /// Admin API implementation.

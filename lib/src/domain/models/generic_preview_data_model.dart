@@ -8,7 +8,7 @@ class GenericPreviewDataModel with _$GenericPreviewDataModel {
   const factory GenericPreviewDataModel({
     required String id,
     required String name,
-    required String description,
+    @Default('') String description,
     String? picture,
   }) = _GenericPreviewDataModel;
 

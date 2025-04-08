@@ -24,7 +24,7 @@ final sharedPreferencesStorageProvider = Provider<SharedPreferencesStorage>((ref
 
 final _baseClientProvider = Provider<BaseClient>((ref) {
   return BaseClient(
-    baseUrl: 'https://api.stirred.com',
+    baseUrl: 'https://127.0.0.1:8000',
     tokenManager: ref.watch(tokenManagerProvider),
   );
 });
@@ -47,9 +47,9 @@ final authApiServiceProvider = Provider<AuthApi>((ref) {
 });
 
 final profileApiServiceProvider = Provider<ProfileApi>((ref) {
-  return ProfileApi(ref.watch(httpClientProvider));
+  return ProfileApi(ref.watch(httpClientProvider), urlPrefix: '/api');
 });
 
 final drinksApiServiceProvider = Provider<DrinksApi>((ref) {
-  return DrinksApi(ref.watch(httpClientProvider));
+  return DrinksApi(ref.watch(httpClientProvider), urlPrefix: '/api');
 });

@@ -136,7 +136,7 @@ class DrinksRepository {
 
   /// Drinks
 
-  Future<Result<DrinksListResponse, StirError>> getDrinksList() {
+  Future<Result<DrinksListResponse, StirError>> getDrinksList({int offset = 0}) {
     return drinksApi.getDrinksList();
   }
 

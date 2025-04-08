@@ -9,26 +9,27 @@ import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
 
 class ProfileApi {
   final ErrorHandlingClient _client;
+  final String urlPrefix;
 
-  ProfileApi(this._client);
+  ProfileApi(this._client, {this.urlPrefix = ''});
 
   Future<Result<Profile, StirError>> getSelfProfile() {
     return _client.get<Profile>(
-      '/self/',
+      '$urlPrefix/self/',
       fromJson: Profile.fromJson,
     );
   }
 
   Future<Result<ProfileListResponse, StirError>> getProfileList() {
     return _client.get<ProfileListResponse>(
-      '/profiles/',
+      '$urlPrefix/profiles/',
       fromJson: ProfileListResponse.fromMap,
     );
   }
 
   Future<Result<ProfileListResponse, StirError>> searchProfiles({String? query}) {
     return _client.get<ProfileListResponse>(
-      '/profiles/search/',
+      '$urlPrefix/profiles/search/',
       queryParameters: query != null ? {'query': query} : null,
       fromJson: ProfileListResponse.fromMap,
     );
@@ -53,7 +54,7 @@ class ProfileApi {
     };
 
     return _client.postMultipart<ProfileCreateResponse>(
-      '/profiles/create/',
+      '$urlPrefix/profiles/create/',
       fields: fields,
       files: files,
       fromJson: ProfileCreateResponse.fromMap,
@@ -62,7 +63,7 @@ class ProfileApi {
 
   Future<Result<Profile, StirError>> retrieveProfile(String id) {
     return _client.get<Profile>(
-      '/profiles/$id/',
+      '$urlPrefix/profiles/$id/',
       fromJson: Profile.fromJson,
     );
   }
@@ -83,11 +84,10 @@ class ProfileApi {
     final files = {if (picture != null) 'picture': picture};
 
     return _client.patchMultipart<ProfilePatchResponse>(
-      '/profiles/$id/',
+      '$urlPrefix/profiles/$id/',
       fields: fields,
       files: files,
       fromJson: ProfilePatchResponse.fromMap,
     );
   }
-
 }

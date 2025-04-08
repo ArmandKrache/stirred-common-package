@@ -8,12 +8,12 @@ part 'profile.g.dart';
 class Profile with _$Profile {
   const factory Profile({
     required String id,
-    @JsonKey(readValue: _readEmail) @Default("") String email,
-    @Default("") String name,
-    @Default("") String description,
-    @Default("") String picture,
-    @JsonKey(name: 'date_of_birth') @Default("") String dateOfBirth,
-    @Default(Preferences()) Preferences preferences,
+    @JsonKey(readValue: _readEmail) @Default("") String? email,
+    @Default("") String? name,
+    @Default("") String? description,
+    @Default("") String? picture,
+    @JsonKey(name: 'date_of_birth') @Default("") String? dateOfBirth,
+    @Default(Preferences()) Preferences? preferences,
   }) = _Profile;
 
   factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
