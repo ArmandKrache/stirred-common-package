@@ -42,7 +42,10 @@ class ErrorHandlingClient {
         }
 
         try {
-          final Map<String, dynamic> jsonData = jsonDecode(response.body);
+          final utf8Bytes = response.bodyBytes;
+          final utf8String = utf8.decode(utf8Bytes);
+          final Map<String, dynamic> jsonData = jsonDecode(utf8String);
+          
           if (fromJson != null) {
             return Result.success(fromJson(jsonData));
           }
