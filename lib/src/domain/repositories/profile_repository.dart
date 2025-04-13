@@ -40,12 +40,14 @@ class ProfileRepository {
 
   Future<Result<ProfilePatchResponse, StirError>> updateProfile({
     required String id,
+    String? email,
     String? name,
     String? description,
     MultipartFile? picture,
     String? dateOfBirth,
   }) async {
     return profileApi.patchProfile(id,
+      email: email,
       name: name,
       description: description,
       picture: picture,

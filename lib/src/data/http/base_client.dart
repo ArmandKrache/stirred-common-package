@@ -74,7 +74,7 @@ class BaseClient {
       ..headers.addAll(finalHeaders);
 
     fields.forEach((key, value) {
-      request.fields[key] = jsonEncode(value);
+      request.fields[key] = value is String ? value : jsonEncode(value);
     });
 
     request.files.addAll(files.values);
@@ -126,7 +126,7 @@ class BaseClient {
       ..headers.addAll(finalHeaders);
 
     fields.forEach((key, value) {
-      request.fields[key] = jsonEncode(value);
+      request.fields[key] = value is String ? value : jsonEncode(value);
     });
 
     request.files.addAll(files.values);

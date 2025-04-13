@@ -70,12 +70,14 @@ class ProfileApi {
 
   Future<Result<ProfilePatchResponse, StirError>> patchProfile(
     String id, {
+    String? email,
     String? name,
     String? description,
     MultipartFile? picture,
     String? dateOfBirth,
   }) {
     final fields = {
+      if (email != null) 'user.email': email,
       if (name != null) 'name': name,
       if (description != null) 'description': description,
       if (dateOfBirth != null) 'date_of_birth': dateOfBirth,
