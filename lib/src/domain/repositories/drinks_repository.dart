@@ -26,7 +26,7 @@ class DrinksRepository {
   final DrinksApi drinksApi;
 
   /// Glasses
-  Future<Result<GlassesListResponse, StirError>> getGlassesList() {
+  Future<Result<GlassesListResponse, StirError>> getGlassesList({int offset = 0}) {
     return drinksApi.getGlassesList();
   }
 

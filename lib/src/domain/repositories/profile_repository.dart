@@ -2,6 +2,7 @@ import 'package:http/http.dart';
 import 'package:stirred_common_domain/src/data/apis/profile_api.dart';
 import 'package:stirred_common_domain/src/domain/models/profiles/profile.dart';
 import 'package:stirred_common_domain/src/domain/response_models/profile_create_response.dart';
+import 'package:stirred_common_domain/src/domain/response_models/profile_list_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/profile_patch_response.dart';
 import 'package:stirred_common_domain/src/utils/resources/result.dart';
 import 'package:stirred_common_domain/src/utils/resources/stir_error.dart';
@@ -16,6 +17,10 @@ class ProfileRepository {
   Future<Result<Profile, StirError>> getSelfProfile() async {
     /// TODO: Implement caching.
     return profileApi.getSelfProfile();
+  }
+
+  Future<Result<ProfileListResponse, StirError>> getProfilesList() async {
+    return profileApi.getProfileList();
   }
 
   Future<Result<Profile, StirError>> getProfileById(String id) async {

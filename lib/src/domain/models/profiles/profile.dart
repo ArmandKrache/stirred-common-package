@@ -13,7 +13,7 @@ class Profile with _$Profile {
     @Default("") String? description,
     @Default("") String? picture,
     @JsonKey(name: 'date_of_birth') @Default("") String? dateOfBirth,
-    @Default(Preferences()) Preferences? preferences,
+    @JsonKey(name: 'preferences', fromJson: Preferences.fromJson, includeToJson: true) @Default(Preferences()) Preferences? preferences,
   }) = _Profile;
 
   factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);

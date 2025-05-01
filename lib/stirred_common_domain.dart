@@ -37,7 +37,6 @@ export "src/domain/request_models/recipes_requests.dart";
 export "src/domain/models/recipes/recipe_ingredient.dart";
 export "src/domain/response_models/all_choices_response.dart";
 export "src/domain/models/categories/categories.dart";
-export "src/domain/models/generic_data_model.dart";
 export "src/domain/models/generic_preview_data_model.dart";
 export "src/domain/request_models/login_request.dart";
 export "src/domain/response_models/login_response.dart";
