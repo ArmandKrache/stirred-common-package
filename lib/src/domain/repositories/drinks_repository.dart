@@ -1,6 +1,7 @@
 import 'package:http/http.dart' show MultipartFile;
 import 'package:stirred_common_domain/src/data/apis/drinks_api.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
+import 'package:stirred_common_domain/src/domain/request_models/glasses_requests.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_create_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drinks_list_response.dart';
@@ -35,28 +36,18 @@ class DrinksRepository {
   }
 
   Future<Result<GlassesCreateResponse, StirError>> createGlass({
-    required String name,
-    required String description,
-    required MultipartFile picture,
+    required GlassesCreateRequest request,
   }) {
-    return drinksApi.createGlass(
-      name: name,
-      description: description,
-      picture: picture,
-    );
+    return drinksApi.createGlass(request: request);
   }
 
   Future<Result<GlassPatchResponse, StirError>> patchGlass(
-    String id, {
-    String? name,
-    String? description,
-    MultipartFile? picture,
-  }) {
+    String id,
+    GlassPatchRequest request,
+  ) {
     return drinksApi.patchGlass(
       id,
-      name: name,
-      description: description,
-      picture: picture,
+      request,
     );
   }
 

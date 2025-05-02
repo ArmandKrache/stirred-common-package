@@ -1,6 +1,8 @@
 import 'package:http/http.dart' show MultipartFile;
+import 'package:stirred_common_domain/src/config.dart';
 import 'package:stirred_common_domain/src/data/http/error_handling_client.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
+import 'package:stirred_common_domain/src/domain/request_models/glasses_requests.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_create_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drinks_list_response.dart';
@@ -41,17 +43,15 @@ class DrinksApi {
   }
 
   Future<Result<GlassesCreateResponse, StirError>> createGlass({
-    required String name,
-    required String description,
-    required MultipartFile picture,
+    required GlassesCreateRequest request,
   }) {
     final fields = {
-      'name': name,
-      'description': description,
+      'name': request.name,
+      'description': request.description,
     };
 
     final files = {
-      'picture': picture,
+      'picture': request.picture,
     };
 
     return _client.postMultipart<GlassesCreateResponse>(
@@ -63,17 +63,15 @@ class DrinksApi {
   }
 
   Future<Result<GlassPatchResponse, StirError>> patchGlass(
-    String id, {
-    String? name,
-    String? description,
-    MultipartFile? picture,
-  }) {
+    String id,
+    GlassPatchRequest request,
+  ) {
     final fields = {
-      if (name != null) 'name': name,
-      if (description != null) 'description': description,
+      if (request.name != null) 'name': request.name,
+      if (request.description != null) 'description': request.description,
     };
 
-    final files = {if (picture != null) 'picture': picture};
+    final files = {if (request.picture != null) 'picture': request.picture!};
 
     return _client.patchMultipart<GlassPatchResponse>(
       '$urlPrefix/glasses/$id/',

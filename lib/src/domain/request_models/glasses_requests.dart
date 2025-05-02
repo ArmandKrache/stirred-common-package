@@ -5,22 +5,29 @@ class GlassesListRequest {
 }
 
 class GlassesCreateRequest {
-  final String? name;
-  final String? description;
-  final MultipartFile? picture;
+  final String name;
+  final String description;
+  final MultipartFile picture;
 
   GlassesCreateRequest({
-    this.name,
-    this.description,
-    this.picture
+    required this.name,
+    required this.description,
+    required this.picture,
   });
 }
 
 class GlassPatchRequest {
   final String id;
-  final Map<String, dynamic> body;
+  final String? name;
+  final String? description;
+  final MultipartFile? picture;
 
-  GlassPatchRequest({required this.id, required this.body});
+  GlassPatchRequest({
+    required this.id,
+    this.name,
+    this.description,
+    this.picture,
+  });
 }
 
 class GlassesSearchRequest {
