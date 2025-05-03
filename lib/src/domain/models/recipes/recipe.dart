@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stirred_common_domain/src/domain/models/difficulty/difficulty.dart';
 import 'package:stirred_common_domain/src/domain/models/recipes/recipe_ingredient.dart';
 
 part 'recipe.freezed.dart';
@@ -11,7 +12,8 @@ class Recipe with _$Recipe {
     required String name,
     required String description,
     @JsonKey(name: 'preparation_time') required int preparationTime,
-    required String difficulty,
+    @JsonKey(name: 'difficulty', fromJson: Difficulty.fromString)
+    required Difficulty difficulty,
     required List<String> instructions,
     required List<RecipeIngredient> ingredients,
   }) = _Recipe;

@@ -10,7 +10,7 @@ class RecipesSearchRequest {
 class RecipeCreateRequest {
   final String name;
   final String description;
-  final String instructions;
+  final List<String> instructions;
   final String difficulty;
   final int preparationTime;
   final List<Map<String, dynamic>> ingredients;

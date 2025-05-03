@@ -2,7 +2,10 @@ import 'package:http/http.dart' show MultipartFile;
 import 'package:stirred_common_domain/src/config.dart';
 import 'package:stirred_common_domain/src/data/http/error_handling_client.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
+import 'package:stirred_common_domain/src/domain/request_models/drinks_requests.dart';
 import 'package:stirred_common_domain/src/domain/request_models/glasses_requests.dart';
+import 'package:stirred_common_domain/src/domain/request_models/recipes_requests.dart';
+import 'package:stirred_common_domain/src/domain/response_models/all_choices_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_create_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drinks_list_response.dart';
@@ -174,10 +177,10 @@ class DrinksApi {
     );
   }
 
-  Future<Result<RecipeCreateResponse, StirError>> createRecipe(Map<String, dynamic> body) {
+  Future<Result<RecipeCreateResponse, StirError>> createRecipe(RecipeCreateRequest request) {
     return _client.post<RecipeCreateResponse>(
       '$urlPrefix/recipes/create/',
-      body: body,
+      body: request.toJson(),
       fromJson: RecipeCreateResponse.fromMap,
     );
   }
@@ -212,25 +215,19 @@ class DrinksApi {
   }
 
   Future<Result<DrinkCreateResponse, StirError>> createDrink({
-    required String name,
-    required String description,
-    required MultipartFile picture,
-    required Map<String, dynamic> categories,
-    required String recipe,
-    required String author,
-    required String glass,
+    required DrinkCreateRequest request,
   }) {
     final fields = {
-      'name': name,
-      'description': description,
-      'categories': categories,
-      'recipe': recipe,
-      'author': author,
-      'glass': glass,
+      'name': request.name,
+      'description': request.description,
+      'categories': request.categories,
+      'recipe': request.recipe,
+      'author': request.author,
+      'glass': request.glass,
     };
 
     final files = {
-      'picture': picture,
+      'picture': request.picture,
     };
 
     return _client.postMultipart<DrinkCreateResponse>(
@@ -309,6 +306,15 @@ class DrinksApi {
     return _client.post(
       '$urlPrefix/self/favorites/',
       body: body,
+    );
+  }
+
+  /// All Choices
+
+  Future<Result<AllChoicesResponse, StirError>> getAllChoices() {
+    return _client.get<AllChoicesResponse>(
+      '$urlPrefix/all-choices/',
+      fromJson: AllChoicesResponse.fromMap,
     );
   }
 }

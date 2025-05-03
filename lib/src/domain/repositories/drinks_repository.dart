@@ -1,7 +1,10 @@
 import 'package:http/http.dart' show MultipartFile;
 import 'package:stirred_common_domain/src/data/apis/drinks_api.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
+import 'package:stirred_common_domain/src/domain/request_models/drinks_requests.dart';
 import 'package:stirred_common_domain/src/domain/request_models/glasses_requests.dart';
+import 'package:stirred_common_domain/src/domain/request_models/recipes_requests.dart';
+import 'package:stirred_common_domain/src/domain/response_models/all_choices_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_patch_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_create_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drinks_list_response.dart';
@@ -113,8 +116,8 @@ class DrinksRepository {
     return drinksApi.searchRecipes(query: query);
   }
 
-  Future<Result<RecipeCreateResponse, StirError>> createRecipe(Map<String, dynamic> body) {
-    return drinksApi.createRecipe(body);
+  Future<Result<RecipeCreateResponse, StirError>> createRecipe(RecipeCreateRequest request) {
+    return drinksApi.createRecipe(request);
   }
 
   Future<Result<RecipePatchResponse, StirError>> patchRecipe(String id, Map<String, dynamic> body) {
@@ -136,23 +139,9 @@ class DrinksRepository {
   }
 
   Future<Result<DrinkCreateResponse, StirError>> createDrink({
-    required String name,
-    required String description,
-    required MultipartFile picture,
-    required Map<String, dynamic> categories,
-    required String recipe,
-    required String author,
-    required String glass,
+    required DrinkCreateRequest request,
   }) {
-    return drinksApi.createDrink(
-      name: name,
-      description: description,
-      picture: picture,
-      categories: categories,
-      recipe: recipe,
-      author: author,
-      glass: glass,
-    );
+    return drinksApi.createDrink(request: request);
   }
 
   Future<Result<Drink, StirError>> retrieveDrink(String id) {
@@ -203,5 +192,11 @@ class DrinksRepository {
 
   Future<Result<dynamic, StirError>> favoriteAction(Map<String, dynamic> body) {
     return drinksApi.favoriteAction(body);
+  }
+
+  /// All Choices
+
+  Future<Result<AllChoicesResponse, StirError>> getAllChoices() {
+    return drinksApi.getAllChoices();
   }
 }

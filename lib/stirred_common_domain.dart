@@ -45,6 +45,7 @@ export "src/domain/models/rating/rating.dart";
 export "src/domain/response_models/rating_create_response.dart";
 export "src/domain/response_models/rating_patch_response.dart";
 export "src/domain/request_models/ratings_requests.dart";
+export "src/domain/models/difficulty/difficulty.dart";
 
 export "src/utils/resources/debouncer.dart";
 export "src/utils/resources/token_manager.dart";
