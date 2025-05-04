@@ -5,6 +5,7 @@ import 'package:stirred_common_domain/src/domain/models/recipes/recipe.dart';
 import 'package:stirred_common_domain/src/domain/models/rating/rating.dart';
 import 'package:stirred_common_domain/src/domain/models/categories/categories.dart';
 import 'package:stirred_common_domain/src/domain/models/preferences/preferences.dart';
+import 'package:stirred_common_domain/stirred_common_domain.dart';
 
 /// Test models for use in unit tests
 class TestModels {
@@ -51,7 +52,7 @@ class TestModels {
     name: 'Test Recipe Name',
     description: 'Test Recipe Description',
     preparationTime: 10,
-    difficulty: 'Easy',
+    difficulty: Difficulty.beginner,
     instructions: ['Step 1', 'Step 2'],
     ingredients: [],
   );

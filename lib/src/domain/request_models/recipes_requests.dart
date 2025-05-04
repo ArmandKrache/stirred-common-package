@@ -38,17 +38,32 @@ class RecipeCreateRequest {
 
 class RecipePatchRequest {
   final String id;
-  final Map<String, dynamic> body;
+  final String? name;
+  final String? description;
+  final List<String>? instructions;
+  final String? difficulty;
+  final int? preparationTime;
+  final List<Map<String, dynamic>>? ingredients;
 
   RecipePatchRequest({
     required this.id,
-    required this.body,
+    this.name,
+    this.description,
+    this.instructions,
+    this.difficulty,
+    this.preparationTime,
+    this.ingredients,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'body': body,
+      'name': name,
+      'description': description,
+      'instructions': instructions,
+      'difficulty': difficulty,
+      'preparation_time': preparationTime,
+      'ingredients': ingredients,
     };
   }
 }

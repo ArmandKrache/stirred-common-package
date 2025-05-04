@@ -120,8 +120,8 @@ class DrinksRepository {
     return drinksApi.createRecipe(request);
   }
 
-  Future<Result<RecipePatchResponse, StirError>> patchRecipe(String id, Map<String, dynamic> body) {
-    return drinksApi.patchRecipe(id, body);
+  Future<Result<RecipePatchResponse, StirError>> patchRecipe(String id, RecipePatchRequest request) {
+    return drinksApi.patchRecipe(id, request);
   }
 
   Future<Result<void, StirError>> deleteRecipe(String id) {
@@ -149,25 +149,10 @@ class DrinksRepository {
   }
 
   Future<Result<DrinkPatchResponse, StirError>> patchDrink(
-    String id, {
-    String? name,
-    String? description,
-    MultipartFile? picture,
-    Map<String, dynamic>? categories,
-    String? recipe,
-    String? author,
-    String? glass,
-  }) {
-    return drinksApi.patchDrink(
-      id,
-      name: name,
-      description: description,
-      picture: picture,
-      categories: categories,
-      recipe: recipe,
-      author: author,
-      glass: glass,
-    );
+    String id,
+    DrinkPatchRequest request,
+  ) {
+    return drinksApi.patchDrink(id, request);
   }
 
   Future<Result<void, StirError>> deleteDrink(String id) {

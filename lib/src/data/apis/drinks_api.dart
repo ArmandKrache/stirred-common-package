@@ -1,5 +1,4 @@
 import 'package:http/http.dart' show MultipartFile;
-import 'package:stirred_common_domain/src/config.dart';
 import 'package:stirred_common_domain/src/data/http/error_handling_client.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/request_models/drinks_requests.dart';
@@ -185,10 +184,10 @@ class DrinksApi {
     );
   }
 
-  Future<Result<RecipePatchResponse, StirError>> patchRecipe(String id, Map<String, dynamic> body) {
+  Future<Result<RecipePatchResponse, StirError>> patchRecipe(String id, RecipePatchRequest request) {
     return _client.patch<RecipePatchResponse>(
       '$urlPrefix/recipes/$id/',
-      body: body,
+      body: request.toJson(),
       fromJson: RecipePatchResponse.fromMap,
     );
   }
@@ -246,25 +245,20 @@ class DrinksApi {
   }
 
   Future<Result<DrinkPatchResponse, StirError>> patchDrink(
-    String id, {
-    String? name,
-    String? description,
-    MultipartFile? picture,
-    Map<String, dynamic>? categories,
-    String? recipe,
-    String? author,
-    String? glass,
-  }) {
+    String id,
+    DrinkPatchRequest request,
+  ) {
     final fields = {
-      if (name != null) 'name': name,
-      if (description != null) 'description': description,
-      if (categories != null) 'categories': categories,
-      if (recipe != null) 'recipe': recipe,
-      if (author != null) 'author': author,
-      if (glass != null) 'glass': glass,
+      if (request.name != null) 'name': request.name,
+      if (request.description != null) 'description': request.description,
+      if (request.categories != null) 'categories': request.categories,
+      if (request.recipe != null) 'recipe': request.recipe,
+      if (request.author != null) 'author': request.author,
+      if (request.glass != null) 'glass': request.glass,
     };
 
-    final files = {if (picture != null) 'picture': picture};
+
+    final files = {if (request.picture != null) 'picture': request.picture!};
 
     return _client.patchMultipart<DrinkPatchResponse>(
       '$urlPrefix/drinks/$id/',
