@@ -3,6 +3,7 @@ import 'package:stirred_common_domain/src/data/apis/drinks_api.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/request_models/drinks_requests.dart';
 import 'package:stirred_common_domain/src/domain/request_models/glasses_requests.dart';
+import 'package:stirred_common_domain/src/domain/request_models/ingredients_requests.dart';
 import 'package:stirred_common_domain/src/domain/request_models/recipes_requests.dart';
 import 'package:stirred_common_domain/src/domain/response_models/all_choices_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_patch_response.dart';
@@ -69,19 +70,9 @@ class DrinksRepository {
   }
 
   Future<Result<IngredientCreateResponse, StirError>> createIngredient({
-    required String name,
-    required String description,
-    required MultipartFile picture,
-    required Map<String, dynamic> categories,
-    required List<String> matches,
+    required IngredientCreateRequest request,
   }) {
-    return drinksApi.createIngredient(
-      name: name,
-      description: description,
-      picture: picture,
-      categories: categories,
-      matches: matches,
-    );
+    return drinksApi.createIngredient(request: request);
   }
 
   Future<Result<IngredientPatchResponse, StirError>> patchIngredient(

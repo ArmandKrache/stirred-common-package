@@ -5,18 +5,18 @@ class IngredientsListRequest {
 }
 
 class IngredientCreateRequest {
-  final String? name;
-  final String? description;
-  final MultipartFile? picture;
+  final String name;
+  final String description;
+  final MultipartFile picture;
   final List<String>? matches;
-  final Map<String, List<String>>? categories;
+  final Map<String, List<String>> categories;
 
   IngredientCreateRequest({
-    this.name,
-    this.description,
-    this.picture,
+    required this.name,
+    required this.description,
+    required this.picture,
+    required this.categories,
     this.matches,
-    this.categories,
   });
 }
 

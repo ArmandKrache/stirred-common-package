@@ -3,6 +3,7 @@ import 'package:stirred_common_domain/src/data/http/error_handling_client.dart';
 import 'package:stirred_common_domain/src/domain/models/drinks/drink.dart';
 import 'package:stirred_common_domain/src/domain/request_models/drinks_requests.dart';
 import 'package:stirred_common_domain/src/domain/request_models/glasses_requests.dart';
+import 'package:stirred_common_domain/src/domain/request_models/ingredients_requests.dart';
 import 'package:stirred_common_domain/src/domain/request_models/recipes_requests.dart';
 import 'package:stirred_common_domain/src/domain/response_models/all_choices_response.dart';
 import 'package:stirred_common_domain/src/domain/response_models/drink_patch_response.dart';
@@ -105,21 +106,17 @@ class DrinksApi {
   }
 
   Future<Result<IngredientCreateResponse, StirError>> createIngredient({
-    required String name,
-    required String description,
-    required MultipartFile picture,
-    required Map<String, dynamic> categories,
-    required List<String> matches,
+    required IngredientCreateRequest request,
   }) {
     final fields = {
-      'name': name,
-      'description': description,
-      'categories': categories,
-      'matches': matches,
+      'name': request.name,
+      'description': request.description,
+      'categories': request.categories,
+      'matches': request.matches,
     };
 
     final files = {
-      'picture': picture,
+      'picture': request.picture,
     };
 
     return _client.postMultipart<IngredientCreateResponse>(
