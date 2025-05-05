@@ -17,4 +17,9 @@ class Debouncer {
       }
     });
   }
+
+  void dispose() {
+    _timer?.cancel();
+    _timer = null;
+  }
 }

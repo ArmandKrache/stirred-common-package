@@ -64,8 +64,16 @@ class DrinksRepository {
 
   /// Ingredients
 
-  Future<Result<IngredientsListResponse, StirError>> getIngredientsList({int page = 1, int pageSize = 20,}) {
-    return drinksApi.getIngredientsList(page: page, pageSize: pageSize);
+  Future<Result<IngredientsListResponse, StirError>> getIngredientsList({
+    int page = 1,
+    int pageSize = 20,
+    String? query,
+  }) {
+    return drinksApi.getIngredientsList(
+      page: page,
+      pageSize: pageSize,
+      query: query,
+    );
   }
 
   Future<Result<IngredientsListResponse, StirError>> searchIngredients({String? query}) {

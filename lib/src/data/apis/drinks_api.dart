@@ -97,13 +97,20 @@ class DrinksApi {
 
   /// Ingredients
 
-  Future<Result<IngredientsListResponse, StirError>> getIngredientsList({int page = 1, int pageSize = 20}) {
+  Future<Result<IngredientsListResponse, StirError>> getIngredientsList({
+    int page = 1,
+    int pageSize = 20,
+    String? query,
+  }) {
+    final queryParams = {
+      'page': page.toString(),
+      'page_size': pageSize.toString(),
+      if (query != null) 'query': query,
+    };
+
     return _client.get<IngredientsListResponse>(
       '$urlPrefix/ingredients/',
-      queryParameters: {
-        'page': page.toString(),
-        'page_size': pageSize.toString(),
-      },
+      queryParameters: queryParams,
       fromJson: IngredientsListResponse.fromMap,
     );
   }
