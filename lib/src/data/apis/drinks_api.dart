@@ -33,21 +33,17 @@ class DrinksApi {
   Future<Result<GlassesListResponse, StirError>> getGlassesList({
     int page = 1,
     int pageSize = 20,
+    String? query,
   }) {
+    final queryParams = {
+      'page': page.toString(),
+      'page_size': pageSize.toString(),
+      if (query != null) 'query': query,
+    };
+
     return _client.get<GlassesListResponse>(
       '$urlPrefix/glasses/',
-      queryParameters: {
-        'page': page.toString(),
-        'page_size': pageSize.toString(),
-      },
-      fromJson: GlassesListResponse.fromMap,
-    );
-  }
-
-  Future<Result<GlassesListResponse, StirError>> searchGlasses({String? query}) {
-    return _client.get<GlassesListResponse>(
-      '$urlPrefix/glasses/search/',
-      queryParameters: query != null ? {'query': query} : null,
+      queryParameters: queryParams,
       fromJson: GlassesListResponse.fromMap,
     );
   }
@@ -115,14 +111,6 @@ class DrinksApi {
     );
   }
 
-  Future<Result<IngredientsListResponse, StirError>> searchIngredients({String? query}) {
-    return _client.get<IngredientsListResponse>(
-      '$urlPrefix/ingredients/search/',
-      queryParameters: query != null ? {'query': query} : null,
-      fromJson: IngredientsListResponse.fromMap,
-    );
-  }
-
   Future<Result<IngredientCreateResponse, StirError>> createIngredient({
     required IngredientCreateRequest request,
   }) {
@@ -183,14 +171,6 @@ class DrinksApi {
     );
   }
 
-  Future<Result<RecipesListResponse, StirError>> searchRecipes({String? query}) {
-    return _client.get<RecipesListResponse>(
-      '$urlPrefix/recipes/search/',
-      queryParameters: query != null ? {'query': query} : null,
-      fromJson: RecipesListResponse.fromMap,
-    );
-  }
-
   Future<Result<RecipeCreateResponse, StirError>> createRecipe(RecipeCreateRequest request) {
     return _client.post<RecipeCreateResponse>(
       '$urlPrefix/recipes/create/',
@@ -216,21 +196,17 @@ class DrinksApi {
   Future<Result<DrinksListResponse, StirError>> getDrinksList({
     int page = 1,
     int pageSize = 20,
+    String? query,
   }) {
+    final queryParams = {
+      'page': page.toString(),
+      'page_size': pageSize.toString(),
+      if (query != null) 'query': query,
+    };
+
     return _client.get<DrinksListResponse>(
       '$urlPrefix/drinks/',
-      queryParameters: {
-        'page': page.toString(),
-        'page_size': pageSize.toString(),
-      },
-      fromJson: DrinksListResponse.fromMap,
-    );
-  }
-
-  Future<Result<DrinksListResponse, StirError>> searchDrinks({String? query}) {
-    return _client.get<DrinksListResponse>(
-      '$urlPrefix/drinks/search/',
-      queryParameters: query != null ? {'query': query} : null,
+      queryParameters: queryParams,
       fromJson: DrinksListResponse.fromMap,
     );
   }

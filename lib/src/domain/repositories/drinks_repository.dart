@@ -34,12 +34,13 @@ class DrinksRepository {
   Future<Result<GlassesListResponse, StirError>> getGlassesList({
     int page = 1,
     int pageSize = 20,
+    String? query,
   }) {
-    return drinksApi.getGlassesList(page: page, pageSize: pageSize);
-  }
-
-  Future<Result<GlassesListResponse, StirError>> searchGlasses({String? query}) {
-    return drinksApi.searchGlasses(query: query);
+    return drinksApi.getGlassesList(
+      page: page,
+      pageSize: pageSize,
+      query: query,
+    );
   }
 
   Future<Result<GlassesCreateResponse, StirError>> createGlass({
@@ -76,10 +77,6 @@ class DrinksRepository {
     );
   }
 
-  Future<Result<IngredientsListResponse, StirError>> searchIngredients({String? query}) {
-    return drinksApi.searchIngredients(query: query);
-  }
-
   Future<Result<IngredientCreateResponse, StirError>> createIngredient({
     required IngredientCreateRequest request,
   }) {
@@ -114,10 +111,6 @@ class DrinksRepository {
     return drinksApi.getRecipesList();
   }
 
-  Future<Result<RecipesListResponse, StirError>> searchRecipes({String? query}) {
-    return drinksApi.searchRecipes(query: query);
-  }
-
   Future<Result<RecipeCreateResponse, StirError>> createRecipe(RecipeCreateRequest request) {
     return drinksApi.createRecipe(request);
   }
@@ -135,13 +128,15 @@ class DrinksRepository {
   Future<Result<DrinksListResponse, StirError>> getDrinksList({
     int page = 1,
     int pageSize = 20,
+    String? query,
   }) {
-    return drinksApi.getDrinksList(page: page, pageSize: pageSize);
+    return drinksApi.getDrinksList(
+      page: page,
+      pageSize: pageSize,
+      query: query,
+    );
   }
 
-  Future<Result<DrinksListResponse, StirError>> searchDrinks({String? query}) {
-    return drinksApi.searchDrinks(query: query);
-  }
 
   Future<Result<DrinkCreateResponse, StirError>> createDrink({
     required DrinkCreateRequest request,

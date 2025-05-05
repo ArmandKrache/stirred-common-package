@@ -22,8 +22,13 @@ class ProfileRepository {
   Future<Result<ProfileListResponse, StirError>> getProfilesList({
     int page = 1,
     int pageSize = 20,
+    String? query,
   }) async {
-    return profileApi.getProfileList(page: page, pageSize: pageSize);
+    return profileApi.getProfileList(
+      page: page,
+      pageSize: pageSize,
+      query: query,
+    );
   }
 
   Future<Result<Profile, StirError>> getProfileById(String id) async {

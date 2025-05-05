@@ -23,21 +23,17 @@ class ProfileApi {
   Future<Result<ProfileListResponse, StirError>> getProfileList({
     int page = 1,
     int pageSize = 20,
+    String? query,
   }) {
+    final queryParameters = {
+      'page': page.toString(),
+      'page_size': pageSize.toString(),
+      if (query != null) 'query': query,
+    };
+
     return _client.get<ProfileListResponse>(
       '$urlPrefix/profiles/',
-      queryParameters: {
-        'page': page.toString(),
-        'page_size': pageSize.toString(),
-      },
-      fromJson: ProfileListResponse.fromMap,
-    );
-  }
-
-  Future<Result<ProfileListResponse, StirError>> searchProfiles({String? query}) {
-    return _client.get<ProfileListResponse>(
-      '$urlPrefix/profiles/search/',
-      queryParameters: query != null ? {'query': query} : null,
+      queryParameters: queryParameters,
       fromJson: ProfileListResponse.fromMap,
     );
   }
