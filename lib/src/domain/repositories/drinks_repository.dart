@@ -31,8 +31,11 @@ class DrinksRepository {
   final DrinksApi drinksApi;
 
   /// Glasses
-  Future<Result<GlassesListResponse, StirError>> getGlassesList({int offset = 0}) {
-    return drinksApi.getGlassesList();
+  Future<Result<GlassesListResponse, StirError>> getGlassesList({
+    int page = 1,
+    int pageSize = 20,
+  }) {
+    return drinksApi.getGlassesList(page: page, pageSize: pageSize);
   }
 
   Future<Result<GlassesListResponse, StirError>> searchGlasses({String? query}) {
@@ -61,8 +64,8 @@ class DrinksRepository {
 
   /// Ingredients
 
-  Future<Result<IngredientsListResponse, StirError>> getIngredientsList() {
-    return drinksApi.getIngredientsList();
+  Future<Result<IngredientsListResponse, StirError>> getIngredientsList({int page = 1, int pageSize = 20,}) {
+    return drinksApi.getIngredientsList(page: page, pageSize: pageSize);
   }
 
   Future<Result<IngredientsListResponse, StirError>> searchIngredients({String? query}) {
@@ -121,8 +124,11 @@ class DrinksRepository {
 
   /// Drinks
 
-  Future<Result<DrinksListResponse, StirError>> getDrinksList({int offset = 0}) {
-    return drinksApi.getDrinksList();
+  Future<Result<DrinksListResponse, StirError>> getDrinksList({
+    int page = 1,
+    int pageSize = 20,
+  }) {
+    return drinksApi.getDrinksList(page: page, pageSize: pageSize);
   }
 
   Future<Result<DrinksListResponse, StirError>> searchDrinks({String? query}) {

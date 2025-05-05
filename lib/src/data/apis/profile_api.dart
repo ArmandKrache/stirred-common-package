@@ -20,9 +20,16 @@ class ProfileApi {
     );
   }
 
-  Future<Result<ProfileListResponse, StirError>> getProfileList() {
+  Future<Result<ProfileListResponse, StirError>> getProfileList({
+    int page = 1,
+    int pageSize = 20,
+  }) {
     return _client.get<ProfileListResponse>(
       '$urlPrefix/profiles/',
+      queryParameters: {
+        'page': page.toString(),
+        'page_size': pageSize.toString(),
+      },
       fromJson: ProfileListResponse.fromMap,
     );
   }

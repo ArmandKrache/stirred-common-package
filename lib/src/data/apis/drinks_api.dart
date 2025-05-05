@@ -30,9 +30,16 @@ class DrinksApi {
   DrinksApi(this._client, {this.urlPrefix = ''});
 
   /// Glasses
-  Future<Result<GlassesListResponse, StirError>> getGlassesList() {
+  Future<Result<GlassesListResponse, StirError>> getGlassesList({
+    int page = 1,
+    int pageSize = 20,
+  }) {
     return _client.get<GlassesListResponse>(
       '$urlPrefix/glasses/',
+      queryParameters: {
+        'page': page.toString(),
+        'page_size': pageSize.toString(),
+      },
       fromJson: GlassesListResponse.fromMap,
     );
   }
@@ -90,9 +97,13 @@ class DrinksApi {
 
   /// Ingredients
 
-  Future<Result<IngredientsListResponse, StirError>> getIngredientsList() {
+  Future<Result<IngredientsListResponse, StirError>> getIngredientsList({int page = 1, int pageSize = 20}) {
     return _client.get<IngredientsListResponse>(
       '$urlPrefix/ingredients/',
+      queryParameters: {
+        'page': page.toString(),
+        'page_size': pageSize.toString(),
+      },
       fromJson: IngredientsListResponse.fromMap,
     );
   }
@@ -195,9 +206,16 @@ class DrinksApi {
 
   /// Drinks
 
-  Future<Result<DrinksListResponse, StirError>> getDrinksList() {
+  Future<Result<DrinksListResponse, StirError>> getDrinksList({
+    int page = 1,
+    int pageSize = 20,
+  }) {
     return _client.get<DrinksListResponse>(
       '$urlPrefix/drinks/',
+      queryParameters: {
+        'page': page.toString(),
+        'page_size': pageSize.toString(),
+      },
       fromJson: DrinksListResponse.fromMap,
     );
   }

@@ -19,8 +19,11 @@ class ProfileRepository {
     return profileApi.getSelfProfile();
   }
 
-  Future<Result<ProfileListResponse, StirError>> getProfilesList() async {
-    return profileApi.getProfileList();
+  Future<Result<ProfileListResponse, StirError>> getProfilesList({
+    int page = 1,
+    int pageSize = 20,
+  }) async {
+    return profileApi.getProfileList(page: page, pageSize: pageSize);
   }
 
   Future<Result<Profile, StirError>> getProfileById(String id) async {
