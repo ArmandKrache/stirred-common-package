@@ -129,11 +129,15 @@ class DrinksRepository {
     int page = 1,
     int pageSize = 20,
     String? query,
+    String? ordering,
+    bool? favoritesOnly,
   }) {
     return drinksApi.getDrinksList(
       page: page,
       pageSize: pageSize,
       query: query,
+      ordering: ordering,
+      favoritesOnly: favoritesOnly,
     );
   }
 

@@ -197,11 +197,15 @@ class DrinksApi {
     int page = 1,
     int pageSize = 20,
     String? query,
+    String? ordering,
+    bool? favoritesOnly,
   }) {
     final queryParams = {
       'page': page.toString(),
       'page_size': pageSize.toString(),
       if (query != null) 'query': query,
+      if (ordering != null) 'ordering': ordering,
+      if (favoritesOnly != null) 'favorites': favoritesOnly.toString(),
     };
 
     return _client.get<DrinksListResponse>(
