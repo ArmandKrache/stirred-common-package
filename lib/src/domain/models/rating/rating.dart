@@ -1,53 +1,27 @@
-import 'package:stirred_common_domain/src/domain/models/generic_data_model.dart';
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Rating extends Equatable {
-  final String id;
-  final String username;
-  final String userPicture;
-  final String comment;
-  final int rating;
-  final int upvotes;
-  final DateTime creationTime;
+part 'rating.freezed.dart';
+part 'rating.g.dart';
 
-  const Rating({
-    required this.id,
-    required this.username,
-    required this.userPicture,
-    required this.comment,
-    required this.rating,
-    required this.upvotes,
-    required this.creationTime,
-  });
+Object? _readUsername(Map<dynamic, dynamic> json, String key) {
+  return (json['user'] as Map<String, dynamic>?)?['name'];
+}
 
-  factory Rating.fromMap(Map<String, dynamic> map) {
-    return Rating(
-      id: map['id'] ?? "",
-      username : map['user']?['name'] ?? "",
-      userPicture : map['user']?['picture'] ?? "",
-      comment: map['comment'] ?? "",
-      rating: map['rating'] ?? 0,
-      upvotes: map['upvotes'] ?? 0,
-      creationTime: map['creation_date'] == null ? DateTime.now() : DateTime.parse(map['creation_date']),
-    );
-  }
+Object? _readUserPicture(Map<dynamic, dynamic> json, String key) {
+  return (json['user'] as Map<String, dynamic>?)?['picture'];
+}
 
-  factory Rating.empty() {
-    return Rating(
-      id: "",
-      username : "",
-      userPicture: "",
-      comment: "",
-      rating: 0,
-      upvotes: 0,
-      creationTime: DateTime.now(),
-    );
-  }
+@freezed
+class Rating with _$Rating {
+  const factory Rating({
+    required String id,
+    @JsonKey(readValue: _readUsername) required String username,
+    @JsonKey(readValue: _readUserPicture) required String userPicture,
+    required String comment,
+    required int rating,
+    required int upvotes,
+    @JsonKey(name: 'creation_date') required DateTime creationTime,
+  }) = _Rating;
 
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [id, rating, username];
-
+  factory Rating.fromJson(Map<String, dynamic> json) => _$RatingFromJson(json);
 }

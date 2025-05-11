@@ -1,40 +1,17 @@
-import 'package:stirred_common_domain/src/domain/models/generic_data_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class GenericPreviewDataModel implements GenericDataModel {
-  final String id;
-  final String? name;
-  final String? description;
-  final String? picture;
+part 'generic_preview_data_model.freezed.dart';
+part 'generic_preview_data_model.g.dart';
 
-  const GenericPreviewDataModel({
-    required this.id,
-    this.name,
-    this.description,
-    this.picture,
-  });
+@freezed
+class GenericPreviewDataModel with _$GenericPreviewDataModel {
+  const factory GenericPreviewDataModel({
+    required String id,
+    required String name,
+    @Default('') String description,
+    String? picture,
+  }) = _GenericPreviewDataModel;
 
-
-  factory GenericPreviewDataModel.fromMap(Map<String, dynamic> map) {
-    return GenericPreviewDataModel(
-      id: map['id'] ?? "",
-      name: map['name'] ?? "",
-      description: map['description'] ?? "",
-      picture: map['picture'] ?? "",
-    );
-  }
-
-  factory GenericPreviewDataModel.empty() {
-    return const GenericPreviewDataModel(
-        id: "",
-        name: "",
-        description: "",
-        picture: ""
-    );
-  }
-
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [id, name];
+  factory GenericPreviewDataModel.fromJson(Map<String, dynamic> json) =>
+      _$GenericPreviewDataModelFromJson(json);
 }

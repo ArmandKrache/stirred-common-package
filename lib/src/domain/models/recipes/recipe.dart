@@ -1,97 +1,24 @@
-import 'package:stirred_common_domain/src/domain/models/generic_data_model.dart';
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stirred_common_domain/src/domain/models/difficulty/difficulty.dart';
+import 'package:stirred_common_domain/src/domain/models/recipes/recipe_ingredient.dart';
 
-class Recipe extends Equatable implements GenericDataModel {
-  final String id;
-  final String name;
-  final String description;
-  final int preparationTime;
-  final String difficulty;
-  final List<String> instructions;
-  final List<RecipeIngredient> ingredients;
+part 'recipe.freezed.dart';
+part 'recipe.g.dart';
 
-  const Recipe({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.preparationTime,
-    required this.difficulty,
-    required this.instructions,
-    required this.ingredients,
-  });
+@freezed
+class Recipe with _$Recipe {
+  const factory Recipe({
+    required String id,
+    required String name,
+    required String description,
+    @JsonKey(name: 'preparation_time') required int preparationTime,
+    @JsonKey(name: 'difficulty', fromJson: Difficulty.fromString)
+    required Difficulty difficulty,
+    required List<String> instructions,
+    required List<RecipeIngredient> ingredients,
+  }) = _Recipe;
 
-  factory Recipe.fromMap(Map<String, dynamic> map) {
-    return Recipe(
-      id: map['id'] ?? "",
-      name : map['name'] ?? "",
-      description: map['description'] ?? "",
-      preparationTime: map['preparation_time'] ?? 0,
-      difficulty: map['difficulty'] ?? "",
-      instructions: List<String>.from((map['instructions'] ?? []).map(
-          (element) => element.toString())
-      ),
-      ingredients: List<RecipeIngredient>.from((map['ingredients'] ?? []).map(
-          (element) => RecipeIngredient.fromMap(element))
-      ),
-    );
-  }
-
-  factory Recipe.empty() {
-    return const Recipe(
-      id: "",
-      name : "",
-      description: "",
-      preparationTime: 0,
-      difficulty: "",
-      instructions: [],
-      ingredients: [],
-    );
-  }
-
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [id, name, description];
-
-}
-
-// ignore: must_be_immutable
-class RecipeIngredient extends Equatable {
-  String ingredientId;
-  String ingredientName;
-  double quantity;
-  String unit;
-
-  RecipeIngredient({
-    required this.ingredientId,
-    required this.ingredientName,
-    required this.quantity,
-    required this.unit,
-  });
-
-  factory RecipeIngredient.fromMap(Map<String, dynamic> map) {
-    return RecipeIngredient(
-      ingredientId: map['ingredient_id'] ?? "",
-      ingredientName : map['ingredient_name'] ?? "",
-      quantity: map['quantity'] ?? 0,
-      unit: map['unit'] ?? "",
-    );
-  }
-
-  factory RecipeIngredient.empty() {
-    return RecipeIngredient(
-      ingredientId: "",
-      ingredientName : "",
-      quantity: 0,
-      unit: "",
-    );
-  }
-
-  @override
-  bool get stringify => true;
-
-  @override
-  List<Object?> get props => [ingredientId, ingredientName, quantity, unit];
+  factory Recipe.fromJson(Map<String, dynamic> json) =>
+      _$RecipeFromJson(json);
 
 }
